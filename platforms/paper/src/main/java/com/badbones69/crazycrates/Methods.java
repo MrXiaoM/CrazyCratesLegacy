@@ -40,7 +40,7 @@ public class Methods {
 
     public static String color(String message) {
         Matcher matcher = HEX_PATTERN.matcher(message);
-        StringBuilder buffer = new StringBuilder();
+        StringBuffer buffer = new StringBuffer();
 
         while (matcher.find()) {
             matcher.appendReplacement(buffer, net.md_5.bungee.api.ChatColor.of(matcher.group()).toString());
@@ -64,8 +64,11 @@ public class Methods {
 
         String prefix = getPrefix();
 
-        if (commandSender instanceof Player player) {
-            if (!prefix.isEmpty() && prefixToggle) player.sendMessage(color(message.replaceAll("%prefix%", quoteReplacement(prefix))).replaceAll("%Prefix%", quoteReplacement(prefix))); else player.sendMessage(color(message));
+        if (commandSender instanceof Player) {
+            Player player = (Player) commandSender;
+            if (!prefix.isEmpty() && prefixToggle)
+                player.sendMessage(color(message.replaceAll("%prefix%", quoteReplacement(prefix))).replaceAll("%Prefix%", quoteReplacement(prefix)));
+            else player.sendMessage(color(message));
 
             return;
         }

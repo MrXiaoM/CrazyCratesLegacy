@@ -17,19 +17,20 @@ public class ChestStateHandler implements ChestControl {
         BlockState blockState = block.getState();
 
         switch (block.getType()) {
-            case ENDER_CHEST -> {
+            case ENDER_CHEST:
                 EnderChest enderChest = (EnderChest) blockState;
 
                 if (!enderChest.isOpen()) enderChest.open();
                 blockState.update(forceUpdate);
-            }
+                break;
 
-            case CHEST, TRAPPED_CHEST -> {
+            case CHEST:
+            case TRAPPED_CHEST:
                 Chest chest = (Chest) blockState;
 
                 if (!chest.isOpen()) chest.open();
                 blockState.update(forceUpdate);
-            }
+                break;
         }
     }
 
@@ -40,36 +41,44 @@ public class ChestStateHandler implements ChestControl {
         BlockState blockState = block.getState();
 
         switch (block.getType()) {
-            case ENDER_CHEST -> {
+            case ENDER_CHEST:
                 EnderChest enderChest = (EnderChest) blockState;
 
                 if (enderChest.isOpen()) enderChest.close();
                 blockState.update(forceUpdate);
-            }
+                break;
 
-            case CHEST, TRAPPED_CHEST -> {
+
+            case CHEST:
+            case TRAPPED_CHEST:
                 Chest chest = (Chest) blockState;
 
                 if (chest.isOpen()) chest.close();
                 blockState.update(forceUpdate);
-            }
+                break;
+
         }
     }
 
     @Override
     public void rotateChest(Block block, int direction) {
 
-        BlockFace blockFace = switch (direction) {
-            case 0 -> // West
-                    BlockFace.WEST;
-            case 1 -> // North
-                    BlockFace.NORTH;
-            case 2 -> // East
-                    BlockFace.EAST;
-            case 3 -> // South
-                    BlockFace.SOUTH;
-            default -> BlockFace.DOWN;
-        };
+        BlockFace blockFace = BlockFace.DOWN;
+        switch (direction) {
+            case 0: // West
+                blockFace = BlockFace.WEST;
+                break;
+            case 1: // North
+                blockFace = BlockFace.NORTH;
+                break;
+            case 2: // East
+                blockFace = BlockFace.EAST;
+                break;
+            case 3: // South
+                blockFace = BlockFace.SOUTH;
+                break;
+        }
+        ;
 
         Directional blockData = (Directional) block.getBlockData();
 

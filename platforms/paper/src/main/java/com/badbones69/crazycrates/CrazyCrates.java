@@ -242,10 +242,12 @@ public class CrazyCrates extends JavaPlugin implements Listener {
             String correctUsage = null;
 
             switch (command) {
-                case "crates" -> correctUsage = getString(subCommand, commandOrder);
-                case "keys" -> {
+                case "crates":
+                    correctUsage = getString(subCommand, commandOrder);
+                    break;
+                case "keys":
                     if (subCommand.equals("view")) correctUsage = "/keys " + subCommand;
-                }
+                    break;
             }
 
             if (correctUsage != null) sender.sendMessage(Messages.CORRECT_USAGE.getMessage().replace("%usage%", correctUsage));
@@ -260,10 +262,12 @@ public class CrazyCrates extends JavaPlugin implements Listener {
             String correctUsage = null;
 
             switch (command) {
-                case "crates" -> correctUsage = getString(subCommand, commandOrder);
-                case "keys" -> {
+                case "crates":
+                    correctUsage = getString(subCommand, commandOrder);
+                    break;
+                case "keys":
                     if (subCommand.equals("view")) correctUsage = "/keys " + subCommand + " <player-name>";
-                }
+                    break;
             }
 
             if (correctUsage != null) sender.sendMessage(Messages.CORRECT_USAGE.getMessage().replace("%usage%", correctUsage));
@@ -277,13 +281,13 @@ public class CrazyCrates extends JavaPlugin implements Listener {
 
         manager.registerMessage(BukkitMessageKey.CONSOLE_ONLY, (sender, context) -> sender.sendMessage(Messages.MUST_BE_A_CONSOLE_SENDER.getMessage()));
 
-        manager.registerSuggestion(SuggestionKey.of("crates"), (sender, context) -> starter.getFileManager().getAllCratesNames(plugin).stream().toList());
+        manager.registerSuggestion(SuggestionKey.of("crates"), (sender, context) -> starter.getFileManager().getAllCratesNames(plugin).stream().collect(Collectors.toList()));
 
         manager.registerSuggestion(SuggestionKey.of("key-types"), (sender, context) -> KEYS);
 
-        manager.registerSuggestion(SuggestionKey.of("online-players"), (sender, context) -> getServer().getOnlinePlayers().stream().map(Player::getName).toList());
+        manager.registerSuggestion(SuggestionKey.of("online-players"), (sender, context) -> getServer().getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList()));
 
-        manager.registerSuggestion(SuggestionKey.of("locations"), (sender, context) -> starter.getCrazyManager().getCrateLocations().stream().map(CrateLocation::getID).toList());
+        manager.registerSuggestion(SuggestionKey.of("locations"), (sender, context) -> starter.getCrazyManager().getCrateLocations().stream().map(CrateLocation::getID).collect(Collectors.toList()));
 
         manager.registerSuggestion(SuggestionKey.of("prizes"), (sender, context) -> {
             List<String> numbers = new ArrayList<>();
@@ -315,21 +319,43 @@ public class CrazyCrates extends JavaPlugin implements Listener {
         String correctUsage = null;
 
         switch (subCommand) {
-            case "transfer" -> correctUsage = commandOrder + "<crate-name> " + "<player-name> " + "<amount>";
-            case "debug", "open", "set" -> correctUsage = commandOrder + "<crate-name>";
-            case "tp" -> correctUsage = commandOrder + "<id>";
-            case "additem" -> correctUsage = commandOrder + "<crate-name> " + "<prize-number>";
-            case "preview", "open-others", "forceopen" -> correctUsage = commandOrder + "<crate-name> " + "<player-name>";
-            case "mass-open" -> correctUsage = commandOrder + "<crate-name> " + "<amount>";
-            case "give-random" -> correctUsage = commandOrder + "<key-type> " + "<amount> " + "<player-name>";
-            case "give", "take" -> correctUsage = commandOrder + "<key-type> " + "<crate-name> " + "<amount> " + "<player-name>";
-            case "giveall" -> correctUsage = commandOrder + "<key-type> " + "<crate-name> " + "<amount>";
+            case "transfer":
+                correctUsage = commandOrder + "<crate-name> " + "<player-name> " + "<amount>";
+                break;
+            case "debug":
+            case "open":
+            case "set":
+                correctUsage = commandOrder + "<crate-name>";
+                break;
+            case "tp":
+                correctUsage = commandOrder + "<id>";
+            case "additem":
+                correctUsage = commandOrder + "<crate-name> " + "<prize-number>";
+                break;
+            case "preview":
+            case "open-others":
+            case "forceopen":
+                correctUsage = commandOrder + "<crate-name> " + "<player-name>";
+                break;
+            case "mass-open":
+                correctUsage = commandOrder + "<crate-name> " + "<amount>";
+                break;
+            case "give-random":
+                correctUsage = commandOrder + "<key-type> " + "<amount> " + "<player-name>";
+                break;
+            case "give":
+            case "take":
+                correctUsage = commandOrder + "<key-type> " + "<crate-name> " + "<amount> " + "<player-name>";
+                break;
+            case "giveall":
+                correctUsage = commandOrder + "<key-type> " + "<crate-name> " + "<amount>";
+                break;
         }
 
         return correctUsage;
     }
 
-    private final List<String> KEYS = List.of("virtual", "v", "physical", "p");
+    private final List<String> KEYS = Lists.newArrayList("virtual", "v", "physical", "p");
 
     public static CrazyCrates getPlugin() {
         return plugin;

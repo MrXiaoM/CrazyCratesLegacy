@@ -39,12 +39,17 @@ public class QuickCrate implements Listener {
     private static final ChestStateHandler chestStateHandler = plugin.getStarter().getChestStateHandler();
 
     public static void openCrate(final Player player, final Location loc, Crate crate, KeyType keyType, HologramController hologramController) {
-        int keys = switch (keyType) {
-            case VIRTUAL_KEY -> crazyManager.getVirtualKeys(player, crate);
-            case PHYSICAL_KEY -> crazyManager.getPhysicalKeys(player, crate);
-            default -> 1;
-        }; // If the key is free it is set to one.
-        
+        int keys = 1;
+        switch (keyType) {
+            case VIRTUAL_KEY:
+                keys = crazyManager.getVirtualKeys(player, crate);
+                break;
+            case PHYSICAL_KEY:
+                keys = crazyManager.getPhysicalKeys(player, crate);
+                break;
+        }
+        ; // If the key is free it is set to one.
+
         if (player.isSneaking() && keys > 1) {
             int keysUsed = 0;
             

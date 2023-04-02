@@ -34,7 +34,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
-import java.io.File;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import static java.util.regex.Matcher.quoteReplacement;
@@ -317,18 +316,31 @@ public class CrazyManager {
         FileConfiguration config = Files.CONFIG.getFile();
 
         switch (crate.getCrateType()) {
-            case MENU -> {
+            case MENU:
                 boolean openMenu = config.getBoolean("Settings.Enable-Crate-Menu");
 
-                if (openMenu) MenuListener.openGUI(player); else player.sendMessage(Messages.FEATURE_DISABLED.getMessage());
-            }
-            case COSMIC -> Cosmic.openCosmic(player, crate, keyType, checkHand);
-            case CSGO -> CSGO.openCSGO(player, crate, keyType, checkHand);
-            case ROULETTE -> Roulette.openRoulette(player, crate, keyType, checkHand);
-            case WHEEL -> Wheel.startWheel(player, crate, keyType, checkHand);
-            case WONDER -> Wonder.startWonder(player, crate, keyType, checkHand);
-            case WAR -> War.openWarCrate(player, crate, keyType, checkHand);
-            case FIRE_CRACKER -> {
+                if (openMenu) MenuListener.openGUI(player);
+                else player.sendMessage(Messages.FEATURE_DISABLED.getMessage());
+                break;
+            case COSMIC:
+                Cosmic.openCosmic(player, crate, keyType, checkHand);
+                break;
+            case CSGO:
+                CSGO.openCSGO(player, crate, keyType, checkHand);
+                break;
+            case ROULETTE:
+                Roulette.openRoulette(player, crate, keyType, checkHand);
+                break;
+            case WHEEL:
+                Wheel.startWheel(player, crate, keyType, checkHand);
+                break;
+            case WONDER:
+                Wonder.startWonder(player, crate, keyType, checkHand);
+                break;
+            case WAR:
+                War.openWarCrate(player, crate, keyType, checkHand);
+                break;
+            case FIRE_CRACKER:
                 if (CrateControlListener.inUse.containsValue(location)) {
                     player.sendMessage(Messages.QUICK_CRATE_IN_USE.getMessage());
                     removePlayerFromOpeningList(player);
@@ -343,8 +355,8 @@ public class CrazyManager {
                         FireCracker.startFireCracker(player, crate, keyType, location, hologramController);
                     }
                 }
-            }
-            case QUICK_CRATE -> {
+                break;
+            case QUICK_CRATE:
                 if (CrateControlListener.inUse.containsValue(location)) {
                     player.sendMessage(Messages.QUICK_CRATE_IN_USE.getMessage());
                     removePlayerFromOpeningList(player);
@@ -359,8 +371,8 @@ public class CrazyManager {
                         QuickCrate.openCrate(player, location, crate, keyType, hologramController);
                     }
                 }
-            }
-            case CRATE_ON_THE_GO -> {
+                break;
+            case CRATE_ON_THE_GO:
                 if (virtualCrate) {
                     player.sendMessage(Messages.CANT_BE_A_VIRTUAL_CRATE.getMessage());
                     removePlayerFromOpeningList(player);
@@ -377,7 +389,7 @@ public class CrazyManager {
                         Methods.failedToTakeKey(player, crate);
                     }
                 }
-            }
+                break;
         }
 
         boolean logFile = FileManager.Files.CONFIG.getFile().getBoolean("Settings.Crate-Actions.Log-File");
@@ -1044,7 +1056,7 @@ public class CrazyManager {
      */
     public boolean takeKeys(int amount, Player player, Crate crate, KeyType keyType, boolean checkHand) {
         switch (keyType) {
-            case PHYSICAL_KEY -> {
+            case PHYSICAL_KEY:
                 int takeAmount = amount;
                 try {
                     List<ItemStack> items = new ArrayList<>();
@@ -1102,9 +1114,9 @@ public class CrazyManager {
 
                 // Returns true because it was able to take some keys.
                 if (takeAmount < amount) return true;
-            }
+                break;
 
-            case VIRTUAL_KEY -> {
+            case VIRTUAL_KEY:
                 String uuid = player.getUniqueId().toString();
                 int keys = getVirtualKeys(player, crate);
                 Files.DATA.getFile().set("Players." + uuid + ".Name", player.getName());
@@ -1116,11 +1128,9 @@ public class CrazyManager {
                 }
                 Files.DATA.saveFile();
                 return true;
-            }
-
-            case FREE_KEY -> { // Returns true because it's FREE
+            case FREE_KEY: // Returns true because it's FREE
                 return true;
-            }
+
         }
 
         return false;
@@ -1144,22 +1154,25 @@ public class CrazyManager {
      */
     public void addKeys(int amount, Player player, Crate crate, KeyType keyType) {
         switch (keyType) {
-            case PHYSICAL_KEY -> {
+            case PHYSICAL_KEY:
                 if (Methods.isInventoryFull(player)) {
                     if (giveVirtualKeysWhenInventoryFull) {
                         addVirtualKeys(amount, player, crate);
 
                         boolean fullMessage = Files.CONFIG.getFile().getBoolean("Settings.Give-Virtual-Keys-When-Inventory-Full-Message");
 
-                        if (fullMessage) player.sendMessage(Messages.CANNOT_GIVE_PLAYER_KEYS.getMessage().replaceAll("%amount%", String.valueOf(amount)).replaceAll("%key%", crate.getName()));
+                        if (fullMessage)
+                            player.sendMessage(Messages.CANNOT_GIVE_PLAYER_KEYS.getMessage().replaceAll("%amount%", String.valueOf(amount)).replaceAll("%key%", crate.getName()));
                     } else {
                         player.getWorld().dropItem(player.getLocation(), crate.getKey(amount));
                     }
                 } else {
                     player.getInventory().addItem(crate.getKey(amount));
                 }
-            }
-            case VIRTUAL_KEY -> addVirtualKeys(amount, player, crate);
+                break;
+            case VIRTUAL_KEY:
+                addVirtualKeys(amount, player, crate);
+                break;
         }
     }
 
@@ -1188,8 +1201,8 @@ public class CrazyManager {
 
             if (!player.hasPlayedBefore()) {
                 crates.stream()
-                .filter(Crate :: doNewPlayersGetKeys)
-                .forEach(crate -> Files.DATA.getFile().set("Player." + uuid + "." + crate, crate.getNewPlayerKeys()));
+                        .filter(Crate::doNewPlayersGetKeys)
+                        .forEach(crate -> Files.DATA.getFile().set("Player." + uuid + "." + crate, crate.getNewPlayerKeys()));
             }
         }
     }

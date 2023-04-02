@@ -374,7 +374,8 @@ public class CrateBaseCommand extends BaseCommand {
     @SubCommand("mass-open")
     @Permission(value = "crazycrates.command.admin.massopen", def = PermissionDefault.OP)
     public void onAdminCrateMassOpen(CommandSender sender, @Suggestion("crates") String crateName, @Suggestion("numbers") int amount) {
-        if (!(sender instanceof Player player)) return;
+        if (!(sender instanceof Player)) return;
+        Player player = (Player) sender;
 
         Crate crate = crazyManager.getCrateFromName(crateName);
         if (crate == null || crateName.equalsIgnoreCase("menu")) {
@@ -495,8 +496,13 @@ public class CrateBaseCommand extends BaseCommand {
         onAdminCrateGive(sender, keyType, crate.getName(), amount, target);
     }
 
-    public record CustomPlayer(String name) {
+    public static class CustomPlayer {
         private static final CrazyCrates plugin = CrazyCrates.getPlugin();
+        private String name;
+
+        public CustomPlayer(String name) {
+            this.name = name;
+        }
 
         public UUID getUUID() {
             Player player = plugin.getServer().getPlayer(name);

@@ -480,11 +480,26 @@ public class ItemBuilder {
         if (matchedMaterial != null) this.material = matchedMaterial;
         
         switch (this.material.name()) {
-            case "PLAYER_HEAD" -> this.isHead = true;
-            case "POTION", "SPLASH_POTION" -> this.isPotion = true;
-            case "LEATHER_HELMET", "LEATHER_CHESTPLATE", "LEATHER_LEGGINGS", "LEATHER_BOOTS", "LEATHER_HORSE_ARMOR" -> this.isLeatherArmor = true;
-            case "BANNER" -> this.isBanner = true;
-            case "SHIELD" -> this.isShield = true;
+            case "PLAYER_HEAD":
+                this.isHead = true;
+                break;
+            case "POTION":
+            case "SPLASH_POTION":
+                this.isPotion = true;
+                break;
+            case "LEATHER_HELMET":
+            case "LEATHER_CHESTPLATE":
+            case "LEATHER_LEGGINGS":
+            case "LEATHER_BOOTS":
+            case "LEATHER_HORSE_ARMOR":
+                this.isLeatherArmor = true;
+                break;
+            case "BANNER":
+                this.isBanner = true;
+                break;
+            case "SHIELD":
+                this.isShield = true;
+                break;
         }
         
         if (this.material.name().contains("BANNER")) this.isBanner = true;
