@@ -1,7 +1,7 @@
 [versions]
 
 # Minecraft
-paper = "1.19.4-R0.1-SNAPSHOT"
+paper = "1.16.5-R0.1-SNAPSHOT"
 
 # Adventure
 kyori = "4.13.0"
@@ -9,7 +9,7 @@ kyori = "4.13.0"
 [libraries]
 
 # Minecraft
-papermc = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
+papermc = { module = "com.destroystokyo.paper:paper-api", version.ref = "paper" }
 paperlib = { module = "io.papermc:paperlib", version = "1.0.8-SNAPSHOT" }
 
 # Adventure
