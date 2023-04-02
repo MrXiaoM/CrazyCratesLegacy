@@ -1,6 +1,6 @@
 <br />
 
-[![crazycrates](https://git.crazycrew.us/ryderbelserion/Assets/raw/branch/main/crazycrew/webp/CrazyCratesBanner.webp)](https://modrinth.com/plugin/crazycrates)
+![crazycrates](https://git.crazycrew.us/ryderbelserion/Assets/raw/branch/main/crazycrew/webp/CrazyCratesBanner.webp)
 
 <div align="center">
 
@@ -9,25 +9,25 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![GPU License][license-shield]][license-url]
-[![Contact][discord-shield]][discord-url]
 ![CodeFactor][codefactor-shield]
 
 ![Paper](https://cdn.jsdelivr.net/gh/intergrav/devins-badges/assets/compact/supported/paper_vector.svg)
 ![Purpur](https://cdn.jsdelivr.net/gh/intergrav/devins-badges/assets/compact/supported/purpur_vector.svg)
 
   <p align="center">
-    A crates plugin that offers quality crates with ease!
+    A crates plugin that offers quality crates with ease! Fork for official unsupported version.
     <br />
-    <a href="https://github.com/Crazy-Crew/CrazyCrates/wiki"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/Crazy-Crew/CrazyCrates/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/Crazy-Crew/CrazyCrates/discussions/categories/feature-rquests">Request Feature</a>
-    ·
-    <a href="https://github.com/Crazy-Crew/CrazyCrates/discussions/categories/support">Get Support</a>
+    <a href="https://github.com/Crazy-Crew/CrazyCrates/wiki"><strong>Explore the original docs »</strong></a>
   </p>
 </div>
+
+## Fork
+
+Native Minecraft Version: `1.16.5`  
+We do **NOT** prove it works on older or newer version. It builds with Java 8. I think that it may works.
+
+**Changes:**
+* Removed QuadCrate because I am lazy to adapt struct between 1.19 and 1.16.
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -47,14 +47,6 @@
   </ol>
 </details>
 
-## Resource Page
-
-### Beta Builds
-
-All beta builds will be on Modrinth marked as beta.<br>
-
-<a href="https://modrinth.com/plugin/crazyenvoys">![Modrinth](https://raw.githubusercontent.com/intergrav/devins-badges/v3/assets/cozy/available/modrinth_64h.png)</a>
-
 ## Getting Started
 
 How to get started with contributing / maintaining your own version of CrazyCrates!
@@ -71,18 +63,13 @@ A list of things necessary to make sure you can build CrazyCrates properly.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/Crazy-Crew/CrazyCrates.git
+   git clone https://github.com/MrXiaoM/CrazyCratesLegacy.git
    ```
 2. Open the repository using Intellij IDEA & wait until it finishes downloading/indexing.
 3. Run the shadowJar task.
    ```gradle
    ./gradlew shadowJar
    ```
-
-## Roadmap
-
-Check our public [trello board](https://trello.com/b/bzQ5TwXo) for our current plans, any bugs and general tracking of
-the project progress.
 
 ## Contributing
 
@@ -96,28 +83,22 @@ the project progress.
 
 Distributed under the MIT License. See [`LICENSE`](/LICENSE) for more information.
 
-[discord-shield]: https://img.shields.io/discord/182615261403283459.svg?style=flat&logo=appveyor
+[contributors-shield]: https://img.shields.io/github/contributors/MrXiaoM/CrazyCratesLegacy.svg?style=flat&logo=appveyor
 
-[discord-url]: https://discord.gg/crazycrew
+[contributors-url]: https://github.com/MrXiaoM/CrazyCratesLegacy/graphs/contributors
 
-[contributors-shield]: https://img.shields.io/github/contributors/Crazy-Crew/CrazyCrates.svg?style=flat&logo=appveyor
+[forks-shield]: https://img.shields.io/github/forks/MrXiaoM/CrazyCratesLegacy.svg?style=flat&logo=appveyor
 
-[contributors-url]: https://github.com/Crazy-Crew/CrazyCrates/graphs/contributors
+[forks-url]: https://github.com/MrXiaoMxLegacy/network/members
 
-[forks-shield]: https://img.shields.io/github/forks/Crazy-Crew/CrazyCrates.svg?style=flat&logo=appveyor
+[stars-shield]: https://img.shields.io/github/stars/MrXiaoM/CrazyCratesLegacy.svg?style=flat&logo=appveyor
 
-[forks-url]: https://github.com/Crazy-Crew/CrazyCrates/network/members
+[stars-url]: https://github.com/MrXiaoM/CrazyCratesLegacy/stargazers
 
-[stars-shield]: https://img.shields.io/github/stars/Crazy-Crew/CrazyCrates.svg?style=flat&logo=appveyor
+[issues-shield]: https://img.shields.io/github/issues/MrXiaoM/CrazyCratesLegacy.svg?style=flat&logo=appveyor
 
-[stars-url]: https://github.com/Crazy-Crew/CrazyCrates/stargazers
+[issues-url]: https://github.com/MrXiaoM/CrazyCratesLegacy/issues
 
-[issues-shield]: https://img.shields.io/github/issues/Crazy-Crew/CrazyCrates.svg?style=flat&logo=appveyor
+[license-shield]: https://img.shields.io/github/license/MrXiaoM/CrazyCratesLegacy.svg?style=flat&logo=appveyor
 
-[issues-url]: https://github.com/Crazy-Crew/CrazyCrates/issues
-
-[license-shield]: https://img.shields.io/github/license/Crazy-Crew/CrazyCrates.svg?style=flat&logo=appveyor
-
-[license-url]: https://github.com/Crazy-Crew/CrazyCrates/blob/master/LICENSE
-
-[codefactor-shield]: https://img.shields.io/codefactor/grade/github/crazy-crew/crazycrates/main?style=flat&logo=appveyor
+[license-url]: https://github.com/MrXiaoM/CrazyCratesLegacy/blob/main/LICENSE
