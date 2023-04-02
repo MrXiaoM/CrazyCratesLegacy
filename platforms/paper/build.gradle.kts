@@ -3,7 +3,6 @@
 plugins {
     id("crazycrates.paper-plugin")
 
-    alias(settings.plugins.minotaur)
     alias(settings.plugins.run.paper)
 }
 
@@ -38,13 +37,6 @@ dependencies {
 
     compileOnly(libs.itemsadder.api)
 }
-
-val github = settings.versions.github.get()
-val extension = settings.versions.extension.get()
-
-val beta = settings.versions.beta.get().toBoolean()
-
-val type = if (beta) "beta" else "release"
 
 tasks {
     shadowJar {
