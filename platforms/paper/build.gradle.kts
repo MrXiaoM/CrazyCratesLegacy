@@ -58,46 +58,7 @@ tasks {
     }
 
     runServer {
-        minecraftVersion("1.19.4")
-    }
-
-    modrinth {
-        token.set(System.getenv("MODRINTH_TOKEN"))
-        projectId.set(rootProject.name.lowercase())
-
-        versionName.set("${rootProject.name} ${rootProject.version}")
-        versionNumber.set(rootProject.version.toString())
-
-        versionType.set(type)
-
-        uploadFile.set(shadowJar.get())
-
-        autoAddDependsOn.set(true)
-
-        gameVersions.addAll(
-            listOf(
-                "1.19",
-                "1.19.1",
-                "1.19.2",
-                "1.19.3",
-                "1.19.4"
-            )
-        )
-
-        loaders.addAll(listOf("paper", "purpur"))
-
-        //<h3>The first release for CrazyCrates on Modrinth! 🎉🎉🎉🎉🎉<h3><br> If we want a header.
-        changelog.set(
-            """
-                <h4>Changes:</h4>
-                 <p>Added 1.19.4 support</p>
-                 <p>Removed 1.18.2 and below support</p>
-                <h4>Under the hood changes</h4>
-                 <p>Simplified build script</p>
-                <h4>Bug Fixes:</h4>
-                 <p>N/A</p>
-            """.trimIndent()
-        )
+        minecraftVersion("1.16.5")
     }
 
     processResources {
@@ -107,34 +68,8 @@ tasks {
                 "group" to rootProject.group,
                 "version" to rootProject.version,
                 "description" to rootProject.description,
-                "website" to "https://modrinth.com/$extension/${rootProject.name.lowercase()}"
+                "website" to "https://pds.ink"
             )
-        }
-    }
-}
-
-publishing {
-    repositories {
-        val repo = if (beta) "beta" else "releases"
-        maven("https://repo.crazycrew.us/$repo") {
-            name = "crazycrew"
-            // Used for locally publishing.
-            // credentials(PasswordCredentials::class)
-
-            credentials {
-                username = System.getenv("REPOSITORY_USERNAME")
-                password = System.getenv("REPOSITORY_PASSWORD")
-            }
-        }
-    }
-
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = rootProject.group.toString()
-            artifactId = "${rootProject.name.lowercase()}-api"
-            version = rootProject.version.toString()
-
-            from(components["java"])
         }
     }
 }

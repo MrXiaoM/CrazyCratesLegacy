@@ -1,6 +1,3 @@
-import task.ReleaseWebhook
-import task.WebhookExtension
-
 plugins {
     `java-library`
 
@@ -24,21 +21,15 @@ repositories {
     mavenLocal()
 }
 
+val javaVersion = 8
+
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of("17"))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(javaVersion))
 }
 
 tasks {
-    // Creating the extension to be available on the root gradle
-    val webhookExtension = extensions.create("webhook", WebhookExtension::class)
-
-    // Register the task
-    register<ReleaseWebhook>("webhook") {
-        extension = webhookExtension
-    }
-
     compileJava {
-        options.release.set(17)
+        options.release.set(javaVersion)
     }
 }
 
