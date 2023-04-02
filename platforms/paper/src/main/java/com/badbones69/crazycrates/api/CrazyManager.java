@@ -9,7 +9,6 @@ import com.badbones69.crazycrates.api.enums.settings.Messages;
 import com.badbones69.crazycrates.api.events.PlayerReceiveKeyEvent;
 import com.badbones69.crazycrates.api.events.PlayerReceiveKeyEvent.KeyReceiveReason;
 import com.badbones69.crazycrates.api.interfaces.HologramController;
-import com.badbones69.crazycrates.api.managers.QuadCrateManager;
 import com.badbones69.crazycrates.api.objects.*;
 import com.badbones69.crazycrates.cratetypes.*;
 import com.badbones69.crazycrates.enums.types.CrateType;
@@ -18,12 +17,10 @@ import com.badbones69.crazycrates.listeners.CrateControlListener;
 import com.badbones69.crazycrates.listeners.MenuListener;
 import com.badbones69.crazycrates.listeners.PreviewListener;
 import com.badbones69.crazycrates.objects.CrateHologram;
-import com.badbones69.crazycrates.quadcrates.CrateSchematic;
 import com.badbones69.crazycrates.support.holograms.CMIHologramsSupport;
 import com.badbones69.crazycrates.support.holograms.DecentHologramsSupport;
 import com.badbones69.crazycrates.support.holograms.HolographicDisplaysSupport;
 import com.badbones69.crazycrates.support.libraries.PluginSupport;
-import com.badbones69.crazycrates.support.structures.StructureHandler;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Location;
@@ -69,15 +66,6 @@ public class CrazyManager {
     // A list of all current crate tasks that are running that a time. Used to force stop any crates it needs to.
     private final HashMap<UUID, BukkitTask> currentTasks = new HashMap<>();
 
-    // A list of tasks being run by the QuadCrate type.
-    private final HashMap<UUID, ArrayList<BukkitTask>> currentQuadTasks = new HashMap<>();
-
-    // The time in seconds a quadcrate can go until afk kicks them from it.
-    private Integer quadCrateTimer;
-
-    // A list of current crate schematics for Quad Crate.
-    private final List<CrateSchematic> crateSchematics = new ArrayList<>();
-
     // If the player's inventory is full when given a physical key it will instead give them virtual keys. If false it will drop the keys on the ground.
     private boolean giveVirtualKeysWhenInventoryFull;
 
@@ -96,9 +84,7 @@ public class CrazyManager {
         crates.clear();
         brokecrates.clear();
         crateLocations.clear();
-        crateSchematics.clear();
 
-        quadCrateTimer = Files.CONFIG.getFile().getInt("Settings.QuadCrate.Timer") * 20;
         giveVirtualKeysWhenInventoryFull = Files.CONFIG.getFile().getBoolean("Settings.Give-Virtual-Keys-When-Inventory-Full");
 
         // Removes all holograms so that they can be replaced.
@@ -250,21 +236,6 @@ public class CrazyManager {
             }
         }
 
-        // Loading schematic files
-        if (fileManager.isLogging()) plugin.getLogger().info("Searching for schematics to load.");
-
-        String[] schems = new File(plugin.getDataFolder() + "/schematics/").list();
-
-        for (String schematicName : schems) {
-            if (schematicName.endsWith(".nbt")) {
-                crateSchematics.add(new CrateSchematic(schematicName.replace(".nbt", ""), new File(plugin.getDataFolder() + "/schematics/" + schematicName)));
-
-                if (fileManager.isLogging()) plugin.getLogger().info(schematicName + " was successfully found and loaded.");
-            }
-        }
-
-        if (fileManager.isLogging()) plugin.getLogger().info("All schematics were found and loaded.");
-
         cleanDataFile();
         PreviewListener.loadButtons();
     }
@@ -357,16 +328,6 @@ public class CrazyManager {
             case WHEEL -> Wheel.startWheel(player, crate, keyType, checkHand);
             case WONDER -> Wonder.startWonder(player, crate, keyType, checkHand);
             case WAR -> War.openWarCrate(player, crate, keyType, checkHand);
-            case QUAD_CRATE -> {
-                Location lastLocation = player.getLocation();
-                lastLocation.setPitch(0F);
-                CrateSchematic crateSchematic = getCrateSchematics().get(new Random().nextInt(getCrateSchematics().size()));
-                StructureHandler handler = new StructureHandler(crateSchematic.schematicFile());
-                CrateLocation crateLocation = getCrateLocation(location);
-                QuadCrateManager session = new QuadCrateManager(player, crate, keyType, crateLocation.getLocation(), lastLocation, checkHand, handler);
-
-                session.startCrate();
-            }
             case FIRE_CRACKER -> {
                 if (CrateControlListener.inUse.containsValue(location)) {
                     player.sendMessage(Messages.QUICK_CRATE_IN_USE.getMessage());
@@ -435,45 +396,6 @@ public class CrazyManager {
             currentTasks.get(player.getUniqueId()).cancel();
             removeCrateTask(player);
         }
-    }
-
-    /**
-     * Ends the tasks running by a player.
-     *
-     * @param player The player using the crate.
-     */
-    public void endQuadCrate(Player player) {
-        if (currentQuadTasks.containsKey(player.getUniqueId())) {
-            for (BukkitTask task : currentQuadTasks.get(player.getUniqueId())) {
-                task.cancel();
-            }
-
-            currentQuadTasks.remove(player.getUniqueId());
-        }
-    }
-
-    /**
-     * Add a quad crate task that is going on for a player.
-     *
-     * @param player The player opening the crate.
-     * @param task The task of the quad crate.
-     */
-    public void addQuadCrateTask(Player player, BukkitTask task) {
-        if (!currentQuadTasks.containsKey(player.getUniqueId())) {
-            currentQuadTasks.put(player.getUniqueId(), new ArrayList<>());
-        }
-
-        currentQuadTasks.get(player.getUniqueId()).add(task);
-    }
-
-    /**
-     * Checks to see if the player has a quad crate task going on.
-     *
-     * @param player The player that is being checked.
-     * @return True if they do have a task and false if not.
-     */
-    public boolean hasQuadCrateTask(Player player) {
-        return currentQuadTasks.containsKey(player.getUniqueId());
     }
 
     /**
@@ -644,15 +566,6 @@ public class CrazyManager {
         }
 
         return null;
-    }
-
-    /**
-     * The time in seconds a quadcrate will last before kicking the player.
-     *
-     * @return The time in seconds till kick.
-     */
-    public Integer getQuadCrateTimer() {
-        return quadCrateTimer;
     }
 
     /**
@@ -1288,46 +1201,6 @@ public class CrazyManager {
      */
     public HologramController getHologramController() {
         return hologramController;
-    }
-
-    /**
-     * Load all the schematics inside the Schematics folder.
-     */
-    public void loadSchematics() {
-        crateSchematics.clear();
-        String[] schems = new File(plugin.getDataFolder() + "/schematics/").list();
-
-        assert schems != null;
-        for (String schematicName : schems) {
-            if (schematicName.endsWith(".nbt")) {
-                crateSchematics.add(new CrateSchematic(schematicName.replace(".nbt", ""), new File(plugin.getDataFolder() + "/schematics/" + schematicName)));
-            }
-        }
-    }
-
-    /**
-     * Get the list of all the schematics currently loaded onto the server.
-     *
-     * @return The list of all loaded schematics.
-     */
-    public List<CrateSchematic> getCrateSchematics() {
-        return crateSchematics;
-    }
-
-    /**
-     * Get a schematic based on its name.
-     *
-     * @param name The name of the schematic.
-     * @return Returns the CrateSchematic otherwise returns null if not found.
-     */
-    public CrateSchematic getCrateSchematic(String name) {
-        for (CrateSchematic schematic : crateSchematics) {
-            if (schematic.schematicName().equalsIgnoreCase(name)) {
-                return schematic;
-            }
-        }
-
-        return null;
     }
 
     /**

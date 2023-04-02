@@ -28,10 +28,7 @@ public enum Permissions {
     CRAZY_CRATES_ADMIN_SET_MENU("admin.setmenu", "Sets the block you are looking at to open the (/cc) crate menu."),
     CRAZY_CRATES_ADMIN_RELOAD("admin.reload", "Reloads the entire plugin."),
     CRAZY_CRATES_ADMIN_DEBUG("admin.debug", "Debugs the plugin."),
-    CRAZY_CRATES_ADMIN_CONVERT("admin.convert", "Converts data from other supported crate plugins into crazy crates."),
-    CRAZY_CRATES_ADMIN_SCHEMATIC("admin.schematic.*", "Gives all permissions related to schematics."),
-    CRAZY_CRATES_ADMIN_SCHEMATIC_SET("admin.schematic.set", "Sets the positions #1 or #2 when making a new schematic for quadcrates."),
-    CRAZY_CRATES_ADMIN_SCHEMATIC_SAVE("admin.schematic.save", "Saves the new schematic file to the schematics folder.");
+    CRAZY_CRATES_ADMIN_CONVERT("admin.convert", "Converts data from other supported crate plugins into crazy crates.");
 
     private final String defaultPermission;
     private final String description;

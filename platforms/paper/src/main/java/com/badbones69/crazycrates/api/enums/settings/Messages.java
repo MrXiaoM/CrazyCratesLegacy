@@ -81,8 +81,6 @@ public enum Messages {
     "&6/cc set <crate> &7- &eSet the block you are looking at as a crate.",
     "&6/cc set Menu &7- &eSet the block you are looking at to open the /cc menu.",
     "&6/cc reload &7- &eReloads the config/data files.",
-    "&6/cc set1/set2 &7- &eSets position &c#1 &eor &c#2 for when making a new schematic for QuadCrates.",
-    "&6/cc save <file name> &7- &eCreate a new nbt file in the schematics folder.",
     " ",
     "&6/key [player] &7- &eCheck the number of keys a player has.",
     "&6/cc &7- &eOpens the menu.",

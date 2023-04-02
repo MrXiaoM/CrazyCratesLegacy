@@ -2,14 +2,12 @@ package com.badbones69.crazycrates;
 
 import com.badbones69.crazycrates.api.FileManager.Files;
 import com.badbones69.crazycrates.api.enums.settings.Messages;
-import com.badbones69.crazycrates.api.managers.quadcrates.SessionManager;
 import com.badbones69.crazycrates.api.objects.CrateLocation;
 import com.badbones69.crazycrates.commands.subs.CrateBaseCommand;
 import com.badbones69.crazycrates.commands.subs.player.BaseKeyCommand;
 import com.badbones69.crazycrates.cratetypes.CSGO;
 import com.badbones69.crazycrates.cratetypes.Cosmic;
 import com.badbones69.crazycrates.cratetypes.CrateOnTheGo;
-import com.badbones69.crazycrates.cratetypes.QuadCrate;
 import com.badbones69.crazycrates.cratetypes.QuickCrate;
 import com.badbones69.crazycrates.cratetypes.Roulette;
 import com.badbones69.crazycrates.cratetypes.War;
@@ -60,7 +58,6 @@ public class CrazyCrates extends JavaPlugin implements Listener {
 
         starter.getFileManager().setLog(true)
                 .registerDefaultGenerateFiles("CrateExample.yml", "/crates", "/crates")
-                .registerDefaultGenerateFiles("QuadCrateExample.yml", "/crates", "/crates")
                 .registerDefaultGenerateFiles("CosmicCrateExample.yml", "/crates", "/crates")
                 .registerDefaultGenerateFiles("QuickCrateExample.yml", "/crates", "/crates")
                 .registerDefaultGenerateFiles("classic.nbt", "/schematics", "/schematics")
@@ -154,8 +151,6 @@ public class CrazyCrates extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-        SessionManager.endCrates();
-
         QuickCrate.removeAllRewards();
 
         if (starter.getCrazyManager().getHologramController() != null) starter.getCrazyManager().getHologramController().removeAllHolograms();
@@ -223,7 +218,6 @@ public class CrazyCrates extends JavaPlugin implements Listener {
         pluginManager.registerEvents(new Roulette(), this);
         pluginManager.registerEvents(new QuickCrate(), this);
         pluginManager.registerEvents(new CrateOnTheGo(), this);
-        pluginManager.registerEvents(new QuadCrate(), this);
 
         pluginManager.registerEvents(this, this);
 

@@ -229,8 +229,6 @@ public class CrateControlListener implements Listener { // Crate Control
 
         if (crazyManager.hasCrateTask(player)) crazyManager.endCrate(player);
 
-        if (crazyManager.hasQuadCrateTask(player)) crazyManager.endQuadCrate(player);
-
         if (crazyManager.isInOpeningList(player)) crazyManager.removePlayerFromOpeningList(player);
     }
     

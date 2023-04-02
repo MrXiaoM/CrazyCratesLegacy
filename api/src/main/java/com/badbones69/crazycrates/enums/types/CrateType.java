@@ -7,7 +7,6 @@ public enum CrateType {
     CRATE_ON_THE_GO("CrateOnTheGo"),
     CSGO("CSGO"),
     FIRE_CRACKER("FireCracker"),
-    QUAD_CRATE("QuadCrate"),
     QUICK_CRATE("QuickCrate"),
     ROULETTE("Roulette"),
     WHEEL("Wheel"),
