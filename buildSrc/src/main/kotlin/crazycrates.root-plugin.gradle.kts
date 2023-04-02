@@ -21,15 +21,16 @@ repositories {
     mavenLocal()
 }
 
-val javaVersion = 8
+val javaVersion = JavaVersion.VERSION_1_8
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(javaVersion))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(8))
 }
 
 tasks {
     compileJava {
-        options.release.set(javaVersion)
+        sourceCompatibility = "1.8"
+        targetCompatibility = "1.8"
     }
 }
 
