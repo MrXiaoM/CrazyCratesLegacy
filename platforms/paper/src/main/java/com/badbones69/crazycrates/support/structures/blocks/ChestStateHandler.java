@@ -2,17 +2,14 @@ package com.badbones69.crazycrates.support.structures.blocks;
 
 import com.badbones69.crazycrates.support.structures.interfaces.ChestControl;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.BlockState;
-import org.bukkit.block.Chest;
-import org.bukkit.block.EnderChest;
+import org.bukkit.block.*;
 import org.bukkit.block.data.Directional;
 
 public class ChestStateHandler implements ChestControl {
     @Override
     public void openChest(Block block, boolean forceUpdate) {
-        if (block.getType() != Material.CHEST || block.getType() != Material.TRAPPED_CHEST || block.getType() != Material.ENDER_CHEST) return;
+        if (block.getType() != Material.CHEST || block.getType() != Material.TRAPPED_CHEST || block.getType() != Material.ENDER_CHEST)
+            return;
 
         BlockState blockState = block.getState();
 
@@ -36,7 +33,8 @@ public class ChestStateHandler implements ChestControl {
 
     @Override
     public void closeChest(Block block, boolean forceUpdate) {
-        if (block.getType() != Material.CHEST || block.getType() != Material.TRAPPED_CHEST || block.getType() != Material.ENDER_CHEST) return;
+        if (block.getType() != Material.CHEST || block.getType() != Material.TRAPPED_CHEST || block.getType() != Material.ENDER_CHEST)
+            return;
 
         BlockState blockState = block.getState();
 

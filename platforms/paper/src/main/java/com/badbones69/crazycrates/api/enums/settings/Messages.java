@@ -4,6 +4,7 @@ import com.badbones69.crazycrates.CrazyCrates;
 import com.badbones69.crazycrates.Methods;
 import com.badbones69.crazycrates.api.FileManager;
 import org.bukkit.configuration.file.FileConfiguration;
+
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -63,30 +64,30 @@ public enum Messages {
     NO_FILES_TO_CONVERT("Files-Converted.No-Files-To-Convert", "&cNo plugins that can be converted were found."),
     ERROR_CONVERTING_FILES("Files-Converted.Error-Converting-Files", "&cThere was an error while trying to convert files. Please check console for the error log."),
     HELP("Help",
-    Arrays.asList(
-    "&e&lCrazy Crates Player Help",
-    "&6/key [player] &7- &eCheck the number of keys a player has.",
-    "&6/cc &7- &eOpens the menu.")),
+            Arrays.asList(
+                    "&e&lCrazy Crates Player Help",
+                    "&6/key [player] &7- &eCheck the number of keys a player has.",
+                    "&6/cc &7- &eOpens the menu.")),
     ADMIN_HELP("Admin-Help",
-    Arrays.asList(
-    "&c&lCrazy Crates Admin Help",
-    "",
-    "&6/cc additem <crate> <prize> &7- &eAdd items in-game to a prize in a crate.",
-    "&6/cc preview <crate> [player] &7- &eOpens the preview of a crate for a player.",
-    "&6/cc list &7- &eLists all crates.",
-    "&6/cc open <crate> [player] &7- &eTries to open a crate for a player if they have a key.",
-    "&6/cc forceopen <crate> [player] &7- &eOpens a crate for a player for free.",
-    "&6/cc tp <location> &7- &eTeleport to a Crate.",
-    "&6/cc give <physical/virtual> <crate> [amount] [player] &7- &eAllows you to take keys from a player.",
-    "&6/cc set <crate> &7- &eSet the block you are looking at as a crate.",
-    "&6/cc set Menu &7- &eSet the block you are looking at to open the /cc menu.",
-    "&6/cc reload &7- &eReloads the config/data files.",
-    " ",
-    "&6/key [player] &7- &eCheck the number of keys a player has.",
-    "&6/cc &7- &eOpens the menu.",
-    " ",
-    "&7You can find a list of permissions @ &ehttps://github.com/Crazy-Crew/CrazyCrates/wiki/Commands-and-Permissions"
-    ));
+            Arrays.asList(
+                    "&c&lCrazy Crates Admin Help",
+                    "",
+                    "&6/cc additem <crate> <prize> &7- &eAdd items in-game to a prize in a crate.",
+                    "&6/cc preview <crate> [player] &7- &eOpens the preview of a crate for a player.",
+                    "&6/cc list &7- &eLists all crates.",
+                    "&6/cc open <crate> [player] &7- &eTries to open a crate for a player if they have a key.",
+                    "&6/cc forceopen <crate> [player] &7- &eOpens a crate for a player for free.",
+                    "&6/cc tp <location> &7- &eTeleport to a Crate.",
+                    "&6/cc give <physical/virtual> <crate> [amount] [player] &7- &eAllows you to take keys from a player.",
+                    "&6/cc set <crate> &7- &eSet the block you are looking at as a crate.",
+                    "&6/cc set Menu &7- &eSet the block you are looking at to open the /cc menu.",
+                    "&6/cc reload &7- &eReloads the config/data files.",
+                    " ",
+                    "&6/key [player] &7- &eCheck the number of keys a player has.",
+                    "&6/cc &7- &eOpens the menu.",
+                    " ",
+                    "&7You can find a list of permissions @ &ehttps://github.com/Crazy-Crew/CrazyCrates/wiki/Commands-and-Permissions"
+            ));
 
     private final String path;
     private String defaultMessage;
@@ -145,7 +146,7 @@ public enum Messages {
 
         if (tooManyArgs != null) {
             plugin.getLogger().warning("Found outdated config entry: " + tooManyArgs);
-            plugin.getLogger().warning("Removing now, Please use `Correct-Usage` from now on." );
+            plugin.getLogger().warning("Removing now, Please use `Correct-Usage` from now on.");
 
             messages.set("Messages.Too-Many-Args", null);
             FileManager.Files.MESSAGES.saveFile();
@@ -153,7 +154,7 @@ public enum Messages {
 
         if (tooFewArgs != null) {
             plugin.getLogger().warning("Found outdated config entry: " + tooFewArgs);
-            plugin.getLogger().warning("Removing now, Please use `Correct-Usage` from now on." );
+            plugin.getLogger().warning("Removing now, Please use `Correct-Usage` from now on.");
 
             messages.set("Messages.Not-Enough-Args", null);
             FileManager.Files.MESSAGES.saveFile();
@@ -168,7 +169,7 @@ public enum Messages {
      *
      * @param placeholder to replace
      * @param replacement the replacement for the placeholder
-     * @param message to be edited
+     * @param message     to be edited
      * @return the edited message
      */
     public static String replacePlaceholders(String placeholder, String replacement, String message) {
@@ -182,13 +183,13 @@ public enum Messages {
      * replace the placeholders in the String with the key/value
      *
      * @param placeholders the map of the placeholders
-     * @param message to be edited
+     * @param message      to be edited
      * @return the edited message
      */
     public static String replacePlaceholders(Map<String, String> placeholders, String message) {
         for (Entry<String, String> placeholder : placeholders.entrySet()) {
             message = message.replace(placeholder.getKey(), placeholder.getValue())
-            .replace(placeholder.getKey().toLowerCase(), placeholder.getValue());
+                    .replace(placeholder.getKey().toLowerCase(), placeholder.getValue());
         }
 
         return message;
@@ -214,7 +215,7 @@ public enum Messages {
      * replace the placeholders in the StringList loop.
      *
      * @param placeholders the map of the placeholders
-     * @param messageList the StringList to be edited
+     * @param messageList  the StringList to be edited
      * @return the edited StringList
      */
     public static List<String> replacePlaceholders(Map<String, String> placeholders, List<String> messageList) {
@@ -223,7 +224,7 @@ public enum Messages {
         for (String message : messageList) {
             for (Entry<String, String> placeholder : placeholders.entrySet()) {
                 message = message.replace(placeholder.getKey(), placeholder.getValue())
-                .replace(placeholder.getKey().toLowerCase(), placeholder.getValue());
+                        .replace(placeholder.getKey().toLowerCase(), placeholder.getValue());
             }
         }
 
@@ -311,7 +312,7 @@ public enum Messages {
      * Defaults to the defaultMessage if it does not exist.
      *
      * @param placeholders the placeholders map
-     * @param prefix whether a prefix is included
+     * @param prefix       whether a prefix is included
      * @return the completed message
      */
     private String getMessage(Map<String, String> placeholders, boolean prefix) {

@@ -7,9 +7,13 @@ import com.badbones69.crazycrates.api.objects.Crate;
 import com.google.common.collect.Lists;
 import dev.triumphteam.cmd.bukkit.annotation.Permission;
 import dev.triumphteam.cmd.core.BaseCommand;
-import dev.triumphteam.cmd.core.annotation.*;
+import dev.triumphteam.cmd.core.annotation.Command;
+import dev.triumphteam.cmd.core.annotation.Default;
+import dev.triumphteam.cmd.core.annotation.SubCommand;
+import dev.triumphteam.cmd.core.annotation.Suggestion;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,7 +36,7 @@ public class BaseKeyCommand extends BaseCommand {
 
     @SubCommand("view")
     @Permission("crazycrates.command.player.key.others")
-    public void viewOthers(CommandSender sender, @Suggestion ("online-players") Player target) {
+    public void viewOthers(CommandSender sender, @Suggestion("online-players") Player target) {
         if (target == sender) {
             sender.sendMessage(Messages.SAME_PLAYER.getMessage());
             return;

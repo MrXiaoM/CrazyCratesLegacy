@@ -1,7 +1,7 @@
 package com.badbones69.crazycrates.enums.types;
 
 public enum CrateType {
-    
+
     MENU("Menu"),
     COSMIC("Cosmic"),
     CRATE_ON_THE_GO("CrateOnTheGo"),
@@ -12,7 +12,7 @@ public enum CrateType {
     WHEEL("Wheel"),
     WONDER("Wonder"),
     WAR("War");
-    
+
     private final String name;
 
     /**

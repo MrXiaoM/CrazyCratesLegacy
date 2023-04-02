@@ -23,9 +23,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
+
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import static java.util.regex.Matcher.quoteReplacement;
 
 @SuppressWarnings("deprecation")
@@ -73,7 +75,9 @@ public class Methods {
             return;
         }
 
-        if (!prefix.isEmpty() && prefixToggle) commandSender.sendMessage(color(message.replaceAll("%prefix%", quoteReplacement(prefix))).replaceAll("%Prefix%", quoteReplacement(prefix))); else commandSender.sendMessage(color(message));
+        if (!prefix.isEmpty() && prefixToggle)
+            commandSender.sendMessage(color(message.replaceAll("%prefix%", quoteReplacement(prefix))).replaceAll("%Prefix%", quoteReplacement(prefix)));
+        else commandSender.sendMessage(color(message));
     }
 
     public static void sendCommand(String command) {
@@ -113,7 +117,8 @@ public class Methods {
 
                     if (num >= 1 && num <= chance) items.put(item, "Crate.Prizes." + reward);
                 }
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         }
 
         return items;
@@ -127,7 +132,7 @@ public class Methods {
         fw.setFireworkMeta(fm);
         FireworkDamageListener.addFirework(fw);
 
-        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, fw :: detonate, 2);
+        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, fw::detonate, 2);
     }
 
     public static void firework(Location loc, Color color) {
@@ -138,7 +143,7 @@ public class Methods {
         fw.setFireworkMeta(fm);
         FireworkDamageListener.addFirework(fw);
 
-        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, fw :: detonate, 2);
+        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, fw::detonate, 2);
     }
 
     public static boolean isInt(String s) {
@@ -174,7 +179,8 @@ public class Methods {
             } else {
                 item.setAmount(item.getAmount() - 1);
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 
     public static boolean permCheck(CommandSender sender, Permissions permissions, boolean tabComplete) {
@@ -292,10 +298,11 @@ public class Methods {
                 }
 
                 if (stripEnchantmentName(enchantment.getName()).equalsIgnoreCase(enchantmentName) || (enchantments.get(enchantment.getName()) != null &&
-                stripEnchantmentName(enchantments.get(enchantment.getName())).equalsIgnoreCase(enchantmentName))) {
+                        stripEnchantmentName(enchantments.get(enchantment.getName())).equalsIgnoreCase(enchantmentName))) {
                     return enchantment;
                 }
-            } catch (Exception ignore) {}
+            } catch (Exception ignore) {
+            }
         }
 
         return null;
@@ -346,22 +353,22 @@ public class Methods {
 
     public static ItemBuilder getRandomPaneColor() {
         List<String> colors = Arrays.asList(
-        Material.WHITE_STAINED_GLASS_PANE.toString(),
-        Material.ORANGE_STAINED_GLASS_PANE.toString(),
-        Material.MAGENTA_STAINED_GLASS_PANE.toString(),
-        Material.LIGHT_BLUE_STAINED_GLASS_PANE.toString(),
-        Material.YELLOW_STAINED_GLASS_PANE.toString(),
-        Material.LIME_STAINED_GLASS_PANE.toString(),
-        Material.PINK_STAINED_GLASS_PANE.toString(),
-        Material.GRAY_STAINED_GLASS_PANE.toString(),
-        Material.CYAN_STAINED_GLASS_PANE.toString(),
-        Material.PURPLE_STAINED_GLASS_PANE.toString(),
-        Material.BLUE_STAINED_GLASS_PANE.toString(),
-        Material.BROWN_STAINED_GLASS_PANE.toString(),
-        Material.GREEN_STAINED_GLASS_PANE.toString(),
-        Material.RED_STAINED_GLASS_PANE.toString(),
-        Material.BLACK_STAINED_GLASS_PANE.toString(),
-        Material.LIGHT_GRAY_STAINED_GLASS_PANE.toString());
+                Material.WHITE_STAINED_GLASS_PANE.toString(),
+                Material.ORANGE_STAINED_GLASS_PANE.toString(),
+                Material.MAGENTA_STAINED_GLASS_PANE.toString(),
+                Material.LIGHT_BLUE_STAINED_GLASS_PANE.toString(),
+                Material.YELLOW_STAINED_GLASS_PANE.toString(),
+                Material.LIME_STAINED_GLASS_PANE.toString(),
+                Material.PINK_STAINED_GLASS_PANE.toString(),
+                Material.GRAY_STAINED_GLASS_PANE.toString(),
+                Material.CYAN_STAINED_GLASS_PANE.toString(),
+                Material.PURPLE_STAINED_GLASS_PANE.toString(),
+                Material.BLUE_STAINED_GLASS_PANE.toString(),
+                Material.BROWN_STAINED_GLASS_PANE.toString(),
+                Material.GREEN_STAINED_GLASS_PANE.toString(),
+                Material.RED_STAINED_GLASS_PANE.toString(),
+                Material.BLACK_STAINED_GLASS_PANE.toString(),
+                Material.LIGHT_GRAY_STAINED_GLASS_PANE.toString());
         return new ItemBuilder().setMaterial(colors.get(random.nextInt(colors.size())));
     }
 
@@ -386,9 +393,10 @@ public class Methods {
 
     /**
      * Picks the prize for the player.
+     *
      * @param player - The player who the prize is for.
-     * @param crate - The crate the player is opening.
-     * @param prize - The prize the player is being given.
+     * @param crate  - The crate the player is opening.
+     * @param prize  - The prize the player is being given.
      */
     public static void pickPrize(Player player, Crate crate, Prize prize) {
         if (prize != null) {

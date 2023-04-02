@@ -8,6 +8,7 @@ import com.badbones69.crazycrates.objects.CrateHologram;
 import eu.decentsoftware.holograms.api.DHAPI;
 import eu.decentsoftware.holograms.api.holograms.Hologram;
 import org.bukkit.block.Block;
+
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -16,7 +17,7 @@ public class DecentHologramsSupport implements HologramController {
     private final CrazyCrates plugin = CrazyCrates.getPlugin();
 
     private final HashMap<Block, Hologram> holograms = new HashMap<>();
-    
+
     public void createHologram(Block block, Crate crate) {
         CrateHologram crateHologram = crate.getHologram();
 
@@ -30,7 +31,7 @@ public class DecentHologramsSupport implements HologramController {
 
         holograms.put(block, hologram);
     }
-    
+
     public void removeHologram(Block block) {
         if (!holograms.containsKey(block)) return;
 

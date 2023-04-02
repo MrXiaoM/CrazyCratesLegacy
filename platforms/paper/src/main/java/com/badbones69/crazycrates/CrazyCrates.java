@@ -5,25 +5,13 @@ import com.badbones69.crazycrates.api.enums.settings.Messages;
 import com.badbones69.crazycrates.api.objects.CrateLocation;
 import com.badbones69.crazycrates.commands.subs.CrateBaseCommand;
 import com.badbones69.crazycrates.commands.subs.player.BaseKeyCommand;
-import com.badbones69.crazycrates.cratetypes.CSGO;
-import com.badbones69.crazycrates.cratetypes.Cosmic;
-import com.badbones69.crazycrates.cratetypes.CrateOnTheGo;
-import com.badbones69.crazycrates.cratetypes.QuickCrate;
-import com.badbones69.crazycrates.cratetypes.Roulette;
-import com.badbones69.crazycrates.cratetypes.War;
-import com.badbones69.crazycrates.cratetypes.Wheel;
-import com.badbones69.crazycrates.cratetypes.Wonder;
-import com.badbones69.crazycrates.listeners.BrokeLocationsListener;
-import com.badbones69.crazycrates.listeners.CrateControlListener;
-import com.badbones69.crazycrates.listeners.FireworkDamageListener;
-import com.badbones69.crazycrates.listeners.ItemsAdderListener;
-import com.badbones69.crazycrates.listeners.MenuListener;
-import com.badbones69.crazycrates.listeners.MiscListener;
-import com.badbones69.crazycrates.listeners.PreviewListener;
+import com.badbones69.crazycrates.cratetypes.*;
+import com.badbones69.crazycrates.listeners.*;
 import com.badbones69.crazycrates.support.MetricsHandler;
 import com.badbones69.crazycrates.support.libraries.PluginSupport;
 import com.badbones69.crazycrates.support.libraries.UpdateChecker;
 import com.badbones69.crazycrates.support.placeholders.PlaceholderAPISupport;
+import com.google.common.collect.Lists;
 import dev.triumphteam.cmd.bukkit.BukkitCommandManager;
 import dev.triumphteam.cmd.bukkit.message.BukkitMessageKey;
 import dev.triumphteam.cmd.core.message.MessageKey;
@@ -37,8 +25,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CrazyCrates extends JavaPlugin implements Listener {
 
@@ -153,7 +143,8 @@ public class CrazyCrates extends JavaPlugin implements Listener {
     public void onDisable() {
         QuickCrate.removeAllRewards();
 
-        if (starter.getCrazyManager().getHologramController() != null) starter.getCrazyManager().getHologramController().removeAllHolograms();
+        if (starter.getCrazyManager().getHologramController() != null)
+            starter.getCrazyManager().getHologramController().removeAllHolograms();
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -227,7 +218,8 @@ public class CrazyCrates extends JavaPlugin implements Listener {
             starter.getCrazyManager().loadCrates();
         }
 
-        if (!starter.getCrazyManager().getBrokeCrateLocations().isEmpty()) pluginManager.registerEvents(new BrokeLocationsListener(), this);
+        if (!starter.getCrazyManager().getBrokeCrateLocations().isEmpty())
+            pluginManager.registerEvents(new BrokeLocationsListener(), this);
 
         if (PluginSupport.PLACEHOLDERAPI.isPluginEnabled()) new PlaceholderAPISupport().register();
 
@@ -250,7 +242,8 @@ public class CrazyCrates extends JavaPlugin implements Listener {
                     break;
             }
 
-            if (correctUsage != null) sender.sendMessage(Messages.CORRECT_USAGE.getMessage().replace("%usage%", correctUsage));
+            if (correctUsage != null)
+                sender.sendMessage(Messages.CORRECT_USAGE.getMessage().replace("%usage%", correctUsage));
         });
 
         manager.registerMessage(MessageKey.NOT_ENOUGH_ARGUMENTS, (sender, context) -> {
@@ -270,7 +263,8 @@ public class CrazyCrates extends JavaPlugin implements Listener {
                     break;
             }
 
-            if (correctUsage != null) sender.sendMessage(Messages.CORRECT_USAGE.getMessage().replace("%usage%", correctUsage));
+            if (correctUsage != null)
+                sender.sendMessage(Messages.CORRECT_USAGE.getMessage().replace("%usage%", correctUsage));
         });
 
         manager.registerMessage(MessageKey.INVALID_ARGUMENT, (sender, context) -> sender.sendMessage(Messages.NOT_ONLINE.getMessage().replace("%player%", context.getTypedArgument())));

@@ -23,12 +23,13 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
 public class QuickCrate implements Listener {
-    
+
     public static ArrayList<Entity> allRewards = new ArrayList<>();
     public static HashMap<Player, Entity> rewards = new HashMap<>();
     private static final CrazyCrates plugin = CrazyCrates.getPlugin();
@@ -52,9 +53,9 @@ public class QuickCrate implements Listener {
 
         if (player.isSneaking() && keys > 1) {
             int keysUsed = 0;
-            
+
             // give the player the prizes
-            for (;keys > 0; keys--) {
+            for (; keys > 0; keys--) {
                 if (Methods.isInventoryFull(player)) break;
                 if (keysUsed >= crate.getMaxMassOpen()) break;
 
@@ -63,10 +64,10 @@ public class QuickCrate implements Listener {
                 plugin.getServer().getPluginManager().callEvent(new PlayerPrizeEvent(player, crate, crate.getName(), prize));
 
                 if (prize.useFireworks()) Methods.firework(loc.clone().add(.5, 1, .5));
-                
+
                 keysUsed++;
             }
-            
+
             if (!crazyManager.takeKeys(keysUsed, player, crate, keyType, false)) {
                 Methods.failedToTakeKey(player, crate);
                 CrateControlListener.inUse.remove(player);
@@ -123,7 +124,7 @@ public class QuickCrate implements Listener {
             }.runTaskLater(plugin, 5 * 20));
         }
     }
-    
+
     public static void endQuickCrate(Player player, Location loc, Crate crate, HologramController hologramController, boolean useQuickCrate) {
         if (tasks.containsKey(player)) {
             tasks.get(player).cancel();
@@ -144,11 +145,11 @@ public class QuickCrate implements Listener {
             if (hologramController != null) hologramController.createHologram(loc.getBlock(), crate);
         }
     }
-    
+
     public static void removeAllRewards() {
-        allRewards.stream().filter(Objects :: nonNull).forEach(Entity :: remove);
+        allRewards.stream().filter(Objects::nonNull).forEach(Entity::remove);
     }
-    
+
     @EventHandler
     public void onHopperPickUp(InventoryPickupItemEvent e) {
         if (crazyManager.isDisplayReward(e.getItem())) e.setCancelled(true);

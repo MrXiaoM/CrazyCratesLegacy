@@ -24,11 +24,11 @@ public class BrokeLocation {
      * Usually never activates.......
      *
      * @param locationName the location name
-     * @param crate the crate object
-     * @param x the X coordinate
-     * @param y the Y coordinate
-     * @param z the Z coordinate
-     * @param world the world name
+     * @param crate        the crate object
+     * @param x            the X coordinate
+     * @param y            the Y coordinate
+     * @param z            the Z coordinate
+     * @param world        the world name
      */
     public BrokeLocation(String locationName, Crate crate, int x, int y, int z, String world) {
         this.x = x;

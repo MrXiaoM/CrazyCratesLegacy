@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldLoadEvent;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class BrokeLocationsListener implements Listener {
     private static final CrazyManager crazyManager = plugin.getStarter().getCrazyManager();
 
     private static final FileManager fileManager = plugin.getStarter().getFileManager();
-    
+
     @EventHandler
     public void onWorldLoad(WorldLoadEvent e) {
         if (!crazyManager.getBrokeCrateLocations().isEmpty()) {
@@ -34,7 +35,8 @@ public class BrokeLocationsListener implements Listener {
                     if (brokeLocation.getCrate() != null) {
                         crazyManager.getCrateLocations().add(new CrateLocation(brokeLocation.getLocationName(), brokeLocation.getCrate(), location));
 
-                        if (brokeLocation.getCrate().getHologram().isEnabled() && crazyManager.getHologramController() != null) crazyManager.getHologramController().createHologram(location.getBlock(), brokeLocation.getCrate());
+                        if (brokeLocation.getCrate().getHologram().isEnabled() && crazyManager.getHologramController() != null)
+                            crazyManager.getHologramController().createHologram(location.getBlock(), brokeLocation.getCrate());
 
                         fixedWorlds.add(brokeLocation);
                         fixedAmount++;
@@ -47,7 +49,8 @@ public class BrokeLocationsListener implements Listener {
             if (fileManager.isLogging()) {
                 plugin.getLogger().warning("Fixed " + fixedAmount + " broken crate locations.");
 
-                if (crazyManager.getBrokeCrateLocations().isEmpty()) plugin.getLogger().warning("All broken crate locations have been fixed.");
+                if (crazyManager.getBrokeCrateLocations().isEmpty())
+                    plugin.getLogger().warning("All broken crate locations have been fixed.");
             }
         }
     }

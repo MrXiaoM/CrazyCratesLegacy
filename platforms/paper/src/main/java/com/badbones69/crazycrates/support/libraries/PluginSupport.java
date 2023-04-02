@@ -9,7 +9,7 @@ public enum PluginSupport {
     CMI("CMI"),
     PLACEHOLDERAPI("PlaceholderAPI"),
     ITEMS_ADDER("ItemsAdder");
-    
+
     private final String name;
 
     private final CrazyCrates plugin = CrazyCrates.getPlugin();
@@ -17,7 +17,7 @@ public enum PluginSupport {
     PluginSupport(String name) {
         this.name = name;
     }
-    
+
     public String getName() {
         return name;
     }

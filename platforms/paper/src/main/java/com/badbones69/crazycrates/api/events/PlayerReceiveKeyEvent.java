@@ -8,15 +8,15 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 public class PlayerReceiveKeyEvent extends Event implements Cancellable {
-    
+
     private static final HandlerList handlers = new HandlerList();
-    
+
     private final Player player;
     private final Crate crate;
     private final KeyReceiveReason reason;
     private final int amount;
     private boolean isCancelled;
-    
+
     public PlayerReceiveKeyEvent(Player player, Crate crate, KeyReceiveReason reason, int amount) {
         this.player = player;
         this.crate = crate;
@@ -28,37 +28,37 @@ public class PlayerReceiveKeyEvent extends Event implements Cancellable {
     public static HandlerList getHandlerList() {
         return handlers;
     }
-    
+
     public Player getPlayer() {
         return player;
     }
-    
+
     public Crate getCrate() {
         return crate;
     }
-    
+
     public KeyReceiveReason getReason() {
         return reason;
     }
-    
+
     @Override
     public boolean isCancelled() {
         return isCancelled;
     }
-    
+
     @Override
     public void setCancelled(boolean cancel) {
         isCancelled = cancel;
     }
-    
+
     public @NotNull HandlerList getHandlers() {
         return handlers;
     }
-    
+
     public int getAmount() {
         return amount;
     }
-    
+
     public enum KeyReceiveReason {
         // Received a key from the /cc give command.
         GIVE_COMMAND,

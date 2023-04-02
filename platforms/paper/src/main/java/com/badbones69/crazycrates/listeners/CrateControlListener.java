@@ -4,14 +4,14 @@ import com.badbones69.crazycrates.CrazyCrates;
 import com.badbones69.crazycrates.Methods;
 import com.badbones69.crazycrates.api.CrazyManager;
 import com.badbones69.crazycrates.api.FileManager.Files;
-import com.badbones69.crazycrates.enums.Permissions;
-import com.badbones69.crazycrates.enums.types.CrateType;
-import com.badbones69.crazycrates.enums.types.KeyType;
 import com.badbones69.crazycrates.api.enums.settings.Messages;
 import com.badbones69.crazycrates.api.events.PhysicalCrateKeyCheckEvent;
 import com.badbones69.crazycrates.api.objects.Crate;
 import com.badbones69.crazycrates.api.objects.CrateLocation;
 import com.badbones69.crazycrates.cratetypes.QuickCrate;
+import com.badbones69.crazycrates.enums.Permissions;
+import com.badbones69.crazycrates.enums.types.CrateType;
+import com.badbones69.crazycrates.enums.types.KeyType;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -30,17 +30,18 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
+
 import java.util.HashMap;
 
 public class CrateControlListener implements Listener { // Crate Control
-    
+
     // A list of crate locations that are in use.
     public static HashMap<Player, Location> inUse = new HashMap<>();
 
     private static final CrazyCrates plugin = CrazyCrates.getPlugin();
 
     private static final CrazyManager crazyManager = plugin.getStarter().getCrazyManager();
-    
+
     // This event controls when a player tries to click in a GUI based crate type. This will stop them from taking items out of their inventories.
     @EventHandler
     public void onCrateInventoryClick(InventoryClickEvent e) {
@@ -48,7 +49,7 @@ public class CrateControlListener implements Listener { // Crate Control
             if (crate.getCrateType() != CrateType.MENU && crate.isCrateMenu(e.getView())) e.setCancelled(true);
         }
     }
-    
+
     // This must run as highest, so it doesn't cause other plugins to check
     // the items that were added to the players inventory and replaced the item in the player's hand.
     // This is only an issue with QuickCrate
@@ -136,7 +137,8 @@ public class CrateControlListener implements Listener { // Crate Control
                         isPhysical = true;
                     }
 
-                    if (config.getBoolean("Settings.Physical-Accepts-Virtual-Keys") && crazyManager.getVirtualKeys(player, crate) >= 1) hasKey = true;
+                    if (config.getBoolean("Settings.Physical-Accepts-Virtual-Keys") && crazyManager.getVirtualKeys(player, crate) >= 1)
+                        hasKey = true;
 
                     if (hasKey) {
                         // Checks if the player uses the quick crate again.
@@ -161,7 +163,8 @@ public class CrateControlListener implements Listener { // Crate Control
                             return;
                         }
 
-                        if (useQuickCrateAgain) QuickCrate.endQuickCrate(player, crateLocation.getLocation(), crate, crazyManager.getHologramController(), true);
+                        if (useQuickCrateAgain)
+                            QuickCrate.endQuickCrate(player, crateLocation.getLocation(), crate, crazyManager.getHologramController(), true);
 
                         KeyType keyType = isPhysical ? KeyType.PHYSICAL_KEY : KeyType.VIRTUAL_KEY;
 
@@ -187,7 +190,7 @@ public class CrateControlListener implements Listener { // Crate Control
             }
         }
     }
-    
+
     @EventHandler
     public void onAdminMenuClick(InventoryClickEvent e) {
         Inventory inv = e.getInventory();
@@ -214,7 +217,8 @@ public class CrateControlListener implements Listener { // Crate Control
                         String name = null;
                         ItemStack key = crate.getKey();
 
-                        if (key.hasItemMeta() && key.getItemMeta().hasDisplayName()) name = key.getItemMeta().getDisplayName();
+                        if (key.hasItemMeta() && key.getItemMeta().hasDisplayName())
+                            name = key.getItemMeta().getDisplayName();
 
                         player.sendMessage(Methods.getPrefix() + Methods.color("&a&l+1 " + (name != null ? name : crate.getName())));
                     }
@@ -222,7 +226,7 @@ public class CrateControlListener implements Listener { // Crate Control
             }
         }
     }
-    
+
     @EventHandler
     public void onLeave(PlayerQuitEvent e) {
         Player player = e.getPlayer();
@@ -231,7 +235,7 @@ public class CrateControlListener implements Listener { // Crate Control
 
         if (crazyManager.isInOpeningList(player)) crazyManager.removePlayerFromOpeningList(player);
     }
-    
+
     public static void knockBack(Player player, Location location) {
         Vector vector = player.getLocation().toVector().subtract(location.toVector()).normalize().multiply(1).setY(.1);
 

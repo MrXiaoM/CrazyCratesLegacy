@@ -1,11 +1,11 @@
 package com.badbones69.crazycrates.enums.types;
 
 public enum KeyType {
-    
+
     PHYSICAL_KEY("Physical_Key"),
     VIRTUAL_KEY("Virtual_Key"),
     FREE_KEY("Free_Key");
-    
+
     private final String name;
 
     /**

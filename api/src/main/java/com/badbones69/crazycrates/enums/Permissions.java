@@ -37,7 +37,7 @@ public enum Permissions {
      * A constructor to build a permission
      *
      * @param defaultPermission the default permission
-     * @param description the permission description
+     * @param description       the permission description
      */
     Permissions(String defaultPermission, String description) {
         this.defaultPermission = defaultPermission;

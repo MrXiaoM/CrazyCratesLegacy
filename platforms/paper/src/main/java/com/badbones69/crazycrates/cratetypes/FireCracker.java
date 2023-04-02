@@ -3,13 +3,14 @@ package com.badbones69.crazycrates.cratetypes;
 import com.badbones69.crazycrates.CrazyCrates;
 import com.badbones69.crazycrates.Methods;
 import com.badbones69.crazycrates.api.CrazyManager;
-import com.badbones69.crazycrates.enums.types.KeyType;
 import com.badbones69.crazycrates.api.interfaces.HologramController;
 import com.badbones69.crazycrates.api.objects.Crate;
+import com.badbones69.crazycrates.enums.types.KeyType;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -18,7 +19,7 @@ public class FireCracker {
     private static final CrazyCrates plugin = CrazyCrates.getPlugin();
 
     private static final CrazyManager crazyManager = plugin.getStarter().getCrazyManager();
-    
+
     public static void startFireCracker(final Player player, final Crate crate, KeyType keyType, final Location loc, HologramController hologramController) {
         if (!crazyManager.takeKeys(1, player, crate, keyType, true)) {
             Methods.failedToTakeKey(player, crate);
@@ -43,7 +44,7 @@ public class FireCracker {
             final int color = r.nextInt(colors.size());
             int l = 0;
             final Location L = loc.clone().add(.5, 25, .5);
-            
+
             @Override
             public void run() {
                 L.subtract(0, 1, 0);

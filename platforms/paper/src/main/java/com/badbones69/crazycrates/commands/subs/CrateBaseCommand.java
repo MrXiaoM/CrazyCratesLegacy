@@ -28,6 +28,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.PermissionDefault;
+
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
@@ -50,7 +51,8 @@ public class CrateBaseCommand extends BaseCommand {
 
         boolean openMenu = config.getBoolean("Settings.Enable-Crate-Menu");
 
-        if (openMenu) MenuListener.openGUI(player); else player.sendMessage(Messages.FEATURE_DISABLED.getMessage());
+        if (openMenu) MenuListener.openGUI(player);
+        else player.sendMessage(Messages.FEATURE_DISABLED.getMessage());
     }
 
     @SubCommand("help")
@@ -180,7 +182,8 @@ public class CrateBaseCommand extends BaseCommand {
 
         sender.sendMessage(Methods.color("&e&lCrates:&f " + crates));
 
-        if (brokecrates.length() > 0) sender.sendMessage(Methods.color("&6&lBroken Crates:&f " + brokecrates.substring(0, brokecrates.length() - 2)));
+        if (brokecrates.length() > 0)
+            sender.sendMessage(Methods.color("&6&lBroken Crates:&f " + brokecrates.substring(0, brokecrates.length() - 2)));
 
         sender.sendMessage(Methods.color("&e&lAll Crate Locations:"));
         sender.sendMessage(Methods.color("&c[ID]&8, &c[Crate]&8, &c[World]&8, &c[X]&8, &c[Y]&8, &c[Z]"));
@@ -522,7 +525,8 @@ public class CrateBaseCommand extends BaseCommand {
 
         Player person;
 
-        if (player != null) person = player; else person = offlinePlayer.getPlayer();
+        if (player != null) person = player;
+        else person = offlinePlayer.getPlayer();
 
         String name;
 
@@ -573,7 +577,8 @@ public class CrateBaseCommand extends BaseCommand {
                 boolean inventoryCheck = FileManager.Files.CONFIG.getFile().getBoolean("Settings.Give-Virtual-Keys-When-Inventory-Full");
 
                 sender.sendMessage(Messages.GIVEN_A_PLAYER_KEYS.getMessage(placeholders));
-                if (!inventoryCheck || !fullMessage && !Methods.isInventoryFull(player) && player.isOnline()) player.sendMessage(Messages.OBTAINING_KEYS.getMessage(placeholders));
+                if (!inventoryCheck || !fullMessage && !Methods.isInventoryFull(player) && player.isOnline())
+                    player.sendMessage(Messages.OBTAINING_KEYS.getMessage(placeholders));
 
                 boolean logFile = FileManager.Files.CONFIG.getFile().getBoolean("Settings.Crate-Actions.Log-File");
                 boolean logConsole = FileManager.Files.CONFIG.getFile().getBoolean("Settings.Crate-Actions.Log-Console");
@@ -649,7 +654,8 @@ public class CrateBaseCommand extends BaseCommand {
 
                 for (Player onlinePlayer : plugin.getServer().getOnlinePlayers()) {
 
-                    if (Methods.permCheck(onlinePlayer, Permissions.CRAZY_CRATES_PLAYER_EXCLUDE_GIVE_ALL, true)) continue;
+                    if (Methods.permCheck(onlinePlayer, Permissions.CRAZY_CRATES_PLAYER_EXCLUDE_GIVE_ALL, true))
+                        continue;
 
                     PlayerReceiveKeyEvent event = new PlayerReceiveKeyEvent(onlinePlayer, crate, PlayerReceiveKeyEvent.KeyReceiveReason.GIVE_ALL_COMMAND, amount);
                     onlinePlayer.getServer().getPluginManager().callEvent(event);

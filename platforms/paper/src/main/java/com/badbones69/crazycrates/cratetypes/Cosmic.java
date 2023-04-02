@@ -22,6 +22,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -35,13 +36,13 @@ public class Cosmic implements Listener {
     private static final HashMap<Player, ArrayList<Integer>> glass = new HashMap<>();
     private static final HashMap<Player, ArrayList<Integer>> picks = new HashMap<>();
     private static final HashMap<Player, Boolean> checkHands = new HashMap<>();
-    
+
     private static void showRewards(Player player, Crate crate) {
         Inventory inv = plugin.getServer().createInventory(null, 27, Methods.sanitizeColor(crate.getFile().getString("Crate.CrateName") + " - Prizes"));
         picks.get(player).forEach(i -> inv.setItem(i, pickTier(player).getTierPane()));
         player.openInventory(inv);
     }
-    
+
     private static void startRoll(Player player, Crate crate) {
         Inventory inv = plugin.getServer().createInventory(null, 27, Methods.sanitizeColor(crate.getFile().getString("Crate.CrateName") + " - Shuffling"));
 
@@ -52,7 +53,7 @@ public class Cosmic implements Listener {
         player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
         player.openInventory(inv);
     }
-    
+
     private static void setChests(Inventory inv, Crate crate) {
         CosmicCrateManager manager = (CosmicCrateManager) crate.getManager();
         int slot = 1;
@@ -62,7 +63,7 @@ public class Cosmic implements Listener {
             slot++;
         }
     }
-    
+
     public static void openCosmic(Player player, Crate crate, KeyType keyType, boolean checkHand) {
         Inventory inv = plugin.getServer().createInventory(null, 27, Methods.sanitizeColor(crate.getFile().getString("Crate.CrateName") + " - Choose"));
         setChests(inv, crate);
@@ -70,7 +71,7 @@ public class Cosmic implements Listener {
         checkHands.put(player, checkHand);
         player.openInventory(inv);
     }
-    
+
     private static Tier pickTier(Player player) {
         Crate crate = crazyManager.getOpeningCrate(player);
 
@@ -87,7 +88,7 @@ public class Cosmic implements Listener {
 
         return null;
     }
-    
+
     @EventHandler
     public void onInvClick(InventoryClickEvent e) {
         final Inventory inv = e.getInventory();
@@ -103,7 +104,8 @@ public class Cosmic implements Listener {
 
         final FileConfiguration file = crate.getFile();
 
-        if (e.getView().getTitle().equals(Methods.sanitizeColor(file.getString("Crate.CrateName") + " - Shuffling"))) e.setCancelled(true);
+        if (e.getView().getTitle().equals(Methods.sanitizeColor(file.getString("Crate.CrateName") + " - Shuffling")))
+            e.setCancelled(true);
 
         if (e.getView().getTitle().equals(Methods.sanitizeColor(file.getString("Crate.CrateName") + " - Prizes"))) {
             e.setCancelled(true);
@@ -217,7 +219,7 @@ public class Cosmic implements Listener {
                                         cancel();
                                         player.sendMessage(Methods.getPrefix("&cAn issue has occurred and so a key refund was given."));
                                         plugin.getServer().getLogger().warning("An issue occurred when the user " + player.getName() +
-                                        " was using the " + crate.getName() + " crate and so they were issued a key refund.");
+                                                " was using the " + crate.getName() + " crate and so they were issued a key refund.");
                                         e.printStackTrace();
                                     }
 
@@ -234,7 +236,8 @@ public class Cosmic implements Listener {
                                     new BukkitRunnable() {
                                         @Override
                                         public void run() {
-                                            if (player.getOpenInventory().getTopInventory().equals(inv)) player.closeInventory();
+                                            if (player.getOpenInventory().getTopInventory().equals(inv))
+                                                player.closeInventory();
                                         }
                                     }.runTaskLater(plugin, 40);
                                 }
@@ -245,7 +248,7 @@ public class Cosmic implements Listener {
             }
         }
     }
-    
+
     @EventHandler
     public void onInvClose(InventoryCloseEvent e) {
         Inventory inv = e.getInventory();
@@ -310,7 +313,7 @@ public class Cosmic implements Listener {
             checkHands.remove(player);
         }
     }
-    
+
     private Tier getTier(Crate crate, ItemStack item) {
         for (Tier tier : crate.getTiers()) {
             if (tier.getTierPane().isSimilar(item)) return tier;
@@ -318,7 +321,7 @@ public class Cosmic implements Listener {
 
         return null;
     }
-    
+
     private boolean inCosmic(int slot) {
         // The last slot in cosmic crate is 27
         return slot < 27;

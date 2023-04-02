@@ -11,7 +11,7 @@ public class MetricsHandler {
         new Metrics(plugin, 4514);
 
         //crazyManager.getCrates().forEach(crate -> {
-       //     CrateType crateType = crate.getCrateType();
+        //     CrateType crateType = crate.getCrateType();
 
         //    SimplePie crateChart = new SimplePie("crate_types", crateType::getName);
 

@@ -8,6 +8,7 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+
 import java.text.NumberFormat;
 
 public class PlaceholderAPISupport extends PlaceholderExpansion {
@@ -15,7 +16,7 @@ public class PlaceholderAPISupport extends PlaceholderExpansion {
     private final CrazyCrates plugin = CrazyCrates.getPlugin();
 
     private final CrazyManager crazyManager = plugin.getStarter().getCrazyManager();
-    
+
     @Override
     public String onRequest(OfflinePlayer player, @NotNull String identifier) {
         if (player.isOnline()) {
@@ -36,22 +37,22 @@ public class PlaceholderAPISupport extends PlaceholderExpansion {
 
         return "";
     }
-    
+
     @Override
     public boolean persist() {
         return true;
     }
-    
+
     @Override
     public @NotNull String getIdentifier() {
         return "crazycrates";
     }
-    
+
     @Override
     public @NotNull String getAuthor() {
         return "BadBones69";
     }
-    
+
     @Override
     public @NotNull String getVersion() {
         return plugin.getDescription().getVersion();

@@ -8,16 +8,17 @@ import com.badbones69.crazycrates.objects.CrateHologram;
 import me.filoghost.holographicdisplays.api.HolographicDisplaysAPI;
 import me.filoghost.holographicdisplays.api.hologram.Hologram;
 import org.bukkit.block.Block;
+
 import java.util.HashMap;
 
 public class HolographicDisplaysSupport implements HologramController {
-    
+
     private final HashMap<Block, Hologram> holograms = new HashMap<>();
 
     private final CrazyCrates plugin = CrazyCrates.getPlugin();
 
     private final HolographicDisplaysAPI api = HolographicDisplaysAPI.get(plugin);
-    
+
     public void createHologram(Block block, Crate crate) {
         CrateHologram crateHologram = crate.getHologram();
 
@@ -31,7 +32,7 @@ public class HolographicDisplaysSupport implements HologramController {
 
         holograms.put(block, hologram);
     }
-    
+
     public void removeHologram(Block block) {
         if (!holograms.containsKey(block)) return;
 
