@@ -1,15 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-dependencyResolutionManagement {
-    versionCatalogs {
-        create("settings") {
-            from(files("gradle/settings.versions.toml"))
-        }
-    }
-
-    repositories.gradlePluginPortal()
-}
-
 pluginManagement {
     repositories {
         gradlePluginPortal()

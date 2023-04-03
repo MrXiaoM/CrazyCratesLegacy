@@ -1,8 +1,6 @@
 plugins {
     `java-library`
 
-    `maven-publish`
-
     id("com.github.hierynomus.license")
 
     id("com.github.johnrengelman.shadow")
@@ -10,13 +8,11 @@ plugins {
 
 repositories {
     maven("https://repo.triumphteam.dev/snapshots/")
-
+    maven("https://repo.codemc.io/repository/maven-public/")
+    maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     maven("https://libraries.minecraft.net/")
-
     maven("https://repo.crazycrew.us/api/")
-
     maven("https://jitpack.io/")
-
     mavenCentral()
     mavenLocal()
 }

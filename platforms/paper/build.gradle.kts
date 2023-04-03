@@ -2,20 +2,6 @@
 
 plugins {
     id("crazycrates.paper-plugin")
-
-    alias(settings.plugins.run.paper)
-}
-
-repositories {
-    /**
-     * PAPI Team
-     */
-    maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
-
-    /**
-     * NBT Team
-     */
-    maven("https://repo.codemc.org/repository/maven-public/")
 }
 
 dependencies {
@@ -47,10 +33,6 @@ tasks {
             "org.bstats",
             "dev.triumphteam.cmd"
         ).forEach { relocate(it, "${rootProject.group}.library.$it") }
-    }
-
-    runServer {
-        minecraftVersion("1.16.5")
     }
 
     processResources {
