@@ -8,6 +8,7 @@ import com.badbones69.crazycrates.api.managers.CrateManager;
 import com.badbones69.crazycrates.enums.types.CrateType;
 import com.badbones69.crazycrates.listeners.PreviewListener;
 import com.badbones69.crazycrates.objects.CrateHologram;
+import com.google.common.collect.Lists;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class Crate {
 
@@ -40,20 +42,21 @@ public class Crate {
 
     private final CrateType crateType;
     private final FileConfiguration file;
-    private final ArrayList<Prize> prizes;
+    private final List<Prize> prizes;
     private final String crateInventoryName;
     private final boolean giveNewPlayerKeys;
     private int previewChestLines;
     private final int newPlayerKeys;
-    private final ArrayList<ItemStack> preview;
-    private final ArrayList<Tier> tiers;
+    private final List<ItemStack> preview;
+    private final List<Tier> tiers;
     private final CrateHologram hologram;
 
     private final CrazyCrates plugin = CrazyCrates.getPlugin();
 
     private final FileManager fileManager = plugin.getStarter().getFileManager();
     private int maxMassOpen;
-
+    private int guaranteedBonusTimes;
+    public final Crate guaranteedBonus;
     /**
      * @param name      The name of the crate.
      * @param crateType The crate type of the crate.
@@ -61,7 +64,7 @@ public class Crate {
      * @param prizes    The prizes that can be won.
      * @param file      The crate file.
      */
-    public Crate(String name, String previewName, CrateType crateType, ItemStack key, ArrayList<Prize> prizes, FileConfiguration file, int newPlayerKeys, ArrayList<Tier> tiers, int maxMassOpen, CrateHologram hologram) {
+    public Crate(String name, String previewName, CrateType crateType, ItemStack key, List<Prize> prizes, FileConfiguration file, int newPlayerKeys, List<Tier> tiers, int maxMassOpen, CrateHologram hologram, int guaranteedBonusTimes) {
         ItemBuilder itemBuilder = ItemBuilder.convertItemStack(key);
         this.keyNoNBT = itemBuilder.build();
         this.key = itemBuilder.setCrateName(name).build();
@@ -94,9 +97,39 @@ public class Crate {
 
         this.hologram = hologram != null ? hologram : new CrateHologram();
 
-        if (crateType == CrateType.COSMIC) this.manager = new CosmicCrateManager(file);
-    }
+        this.guaranteedBonusTimes = guaranteedBonusTimes;
 
+        if (crateType == CrateType.COSMIC) this.manager = new CosmicCrateManager(file);
+        if (guaranteedBonusTimes > 0) {
+            List<Prize> bonusPrize = prizes.stream()
+                    .filter(it -> it.getBonusChance() > 0)
+                    .map(Prize::bonus)
+                    .collect(Collectors.toList());
+            guaranteedBonus = new Crate(name, previewName, crateType, key, bonusPrize, file, newPlayerKeys, tiers, maxMassOpen, null, -1);
+        }
+        else guaranteedBonus = null;
+    }
+    public void setGuaranteedBonusTimes(Player p, int times) {
+        String path = "Players." + p.getUniqueId() + ".__GUARANTEED_BONUS." + name;
+        FileManager.Files.DATA.getFile().set(path, times);
+    }
+    public int getGuaranteedBonusTimes(Player p) {
+        String path = "Players." + p.getUniqueId() + ".__GUARANTEED_BONUS." + name;
+        return FileManager.Files.DATA.getFile().getInt(path, 0);
+    }
+    public boolean addGuaranteedBonusTimes(Player p) {
+        boolean isGuaranteedBonus = false;
+        if (guaranteedBonusTimes <= 0) return isGuaranteedBonus;
+        int times = getGuaranteedBonusTimes(p);
+        times++;
+        if (times >= guaranteedBonusTimes) {
+            isGuaranteedBonus = true;
+            times = 0;
+        }
+        setGuaranteedBonusTimes(p, times);
+        FileManager.Files.DATA.saveFile();
+        return isGuaranteedBonus;
+    }
     /**
      * Get the crate manager which contains all the settings for that crate type.
      */
@@ -370,9 +403,8 @@ public class Crate {
      *
      * @return A list of all the preview items.
      */
-    @SuppressWarnings("unchecked")
-    public ArrayList<ItemStack> getPreviewItems() {
-        return (ArrayList<ItemStack>) preview.clone();
+    public List<ItemStack> getPreviewItems() {
+        return Lists.newArrayList(preview);
     }
 
     /**
@@ -435,7 +467,7 @@ public class Crate {
     /**
      * @return The prizes in the crate.
      */
-    public ArrayList<Prize> getPrizes() {
+    public List<Prize> getPrizes() {
         return this.prizes;
     }
 
@@ -538,7 +570,7 @@ public class Crate {
     /**
      * @return A list of the tiers for the crate. Will be empty if there are none.
      */
-    public ArrayList<Tier> getTiers() {
+    public List<Tier> getTiers() {
         return tiers;
     }
 
@@ -554,6 +586,10 @@ public class Crate {
      */
     public CrateHologram getHologram() {
         return hologram;
+    }
+
+    public int getGuaranteedBonusTimes() {
+        return guaranteedBonusTimes;
     }
 
     public int getAbsoluteItemPosition(int baseSlot) {

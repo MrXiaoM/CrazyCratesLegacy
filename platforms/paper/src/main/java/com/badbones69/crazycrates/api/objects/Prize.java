@@ -10,6 +10,7 @@ import java.util.List;
 public class Prize {
 
     private final int chance;
+    private final int bonusChance;
     private final String name;
     private final String crate;
     private final int maxRange;
@@ -39,6 +40,7 @@ public class Prize {
         this.items = items != null ? items : new ArrayList<>();
         this.itemBuilders = itemBuilders != null ? itemBuilders : new ArrayList<>();
         this.chance = 0;
+        this.bonusChance = -1;
         this.firework = false;
         this.maxRange = 100;
         this.tiers = new ArrayList<>();
@@ -64,13 +66,14 @@ public class Prize {
      * @param altPrize             The alternative prize that is won if the player has a blacklist permission.
      */
     public Prize(String name, ItemBuilder displayItem, List<String> messages, List<String> commands,
-                 List<ItemStack> items, List<ItemBuilder> itemBuilders, String crate, int chance, int maxRange, boolean firework, List<String> blackListPermissions,
+                 List<ItemStack> items, List<ItemBuilder> itemBuilders, String crate, int chance, int bonusChance, int maxRange, boolean firework, List<String> blackListPermissions,
                  List<Tier> tiers, Prize altPrize) {
         this.name = name != null ? name : "&4No name Found!";
         this.crate = crate;
         this.items = items != null ? items : new ArrayList<>();
         this.itemBuilders = itemBuilders != null ? itemBuilders : new ArrayList<>();
         this.chance = chance;
+        this.bonusChance = bonusChance;
         this.firework = firework;
         this.maxRange = maxRange;
         this.tiers = tiers != null ? tiers : new ArrayList<>();
@@ -157,6 +160,17 @@ public class Prize {
      */
     public int getChance() {
         return chance;
+    }
+
+    /**
+     * @return Returns the chance the prize has of being picked at guaranteed bonus.
+     */
+    public int getBonusChance() {
+        return bonusChance;
+    }
+
+    public Prize bonus() {
+        return new Prize(name, displayItem, messages, commands, items, itemBuilders, crate, bonusChance, -1, maxRange, firework, blackListPermissions, tiers, altPrize);
     }
 
     /**

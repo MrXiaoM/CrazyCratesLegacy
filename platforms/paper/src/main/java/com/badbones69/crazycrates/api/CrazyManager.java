@@ -163,6 +163,7 @@ public class CrazyManager {
                             getItems(file, prize),
                             crateName,
                             file.getInt(path + ".Chance", 100),
+                            file.getInt(path + ".BonusChance", -1),
                             file.getInt(path + ".MaxRange", 100),
                             file.getBoolean(path + ".Firework"),
                             file.getStringList(path + ".BlackListed-Permissions"),
@@ -171,13 +172,14 @@ public class CrazyManager {
                 }
 
                 int newPlayersKeys = file.getInt("Crate.StartingKeys");
+                int guaranteedBonusTimes = file.getInt("GuaranteedBonus.Times", -1);
 
                 if (!giveNewPlayersKeys) {
                     if (newPlayersKeys > 0) giveNewPlayersKeys = true;
                 }
 
                 CrateHologram holo = new CrateHologram(file.getBoolean("Crate.Hologram.Toggle"), file.getDouble("Crate.Hologram.Height", 0.0), file.getStringList("Crate.Hologram.Message"));
-                crates.add(new Crate(crateName, previewName, crateType, getKey(file), prizes, file, newPlayersKeys, tiers, maxMassOpen, holo));
+                crates.add(new Crate(crateName, previewName, crateType, getKey(file), prizes, file, newPlayersKeys, tiers, maxMassOpen, holo, guaranteedBonusTimes));
             } catch (Exception e) {
                 brokecrates.add(crateName);
                 plugin.getLogger().warning("There was an error while loading the " + crateName + ".yml file.");
@@ -185,7 +187,7 @@ public class CrazyManager {
             }
         }
 
-        crates.add(new Crate("Menu", "Menu", CrateType.MENU, new ItemStack(Material.AIR), new ArrayList<>(), null, 0, null, 0, null));
+        crates.add(new Crate("Menu", "Menu", CrateType.MENU, new ItemStack(Material.AIR), new ArrayList<>(), null, 0, null, 0, null, -1));
 
         if (fileManager.isLogging()) {
             plugin.getLogger().info("All crate information has been loaded.");
@@ -312,7 +314,10 @@ public class CrazyManager {
                 return;
             }
         }
-
+        if (crate.guaranteedBonus != null && crate.addGuaranteedBonusTimes(player)) {
+            openCrate(player, crate.guaranteedBonus, keyType, location, virtualCrate, checkHand);
+            return;
+        }
         addPlayerToOpeningList(player, crate);
 
         if (crate.getFile() != null) Methods.broadCastMessage(crate.getFile(), player);
