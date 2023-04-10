@@ -4,12 +4,12 @@
 
 <div align="center">
 
+[![Downloads][downloads-shield]][downloads-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![GPU License][license-shield]][license-url]
-![CodeFactor][codefactor-shield]
 
 ![Paper](https://cdn.jsdelivr.net/gh/intergrav/devins-badges/assets/compact/supported/paper_vector.svg)
 ![Purpur](https://cdn.jsdelivr.net/gh/intergrav/devins-badges/assets/compact/supported/purpur_vector.svg)
@@ -17,7 +17,7 @@
   <p align="center">
     A crates plugin that offers quality crates with ease! Fork for official unsupported version.
     <br />
-    <a href="https://github.com/Crazy-Crew/CrazyCrates/wiki"><strong>Explore the original docs »</strong></a>
+    <a href="https://github.com/MrXiaoM/CrazyCratesLegacy/wiki"><strong>Explore the docs »</strong></a>
   </p>
 </div>
 
@@ -28,7 +28,7 @@ We do **NOT** prove it works on older or newer version. It builds with Java 8. I
 
 **Changes:**
 * Removed QuadCrate because I am lazy to adapt struct between 1.19 and 1.16.
-* Add guaranteed bonus. Please check [wiki](https://github.com/MrXiaoM/CrazyCratesLegacy/wiki) for usage.
+* Add guaranteed bonus. Please check [wiki](https://github.com/MrXiaoM/CrazyCratesLegacy/wiki/Guaranteed-Bonus) for usage.
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -83,6 +83,10 @@ A list of things necessary to make sure you can build CrazyCrates properly.
 ## License
 
 Distributed under the MIT License. See [`LICENSE`](/LICENSE) for more information.
+
+[downloads-shield]: https://img.shields.io/github/downloads/MrXiaoM/CrazyCratesLegacy/total.svg?style=flat&logo=appveyor
+
+[downloads-url]: https://github.com/MrXiaoM/CrazyCratesLegacy/releases
 
 [contributors-shield]: https://img.shields.io/github/contributors/MrXiaoM/CrazyCratesLegacy.svg?style=flat&logo=appveyor
 
