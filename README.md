@@ -28,6 +28,7 @@ We do **NOT** prove it works on older or newer version. It builds with Java 8. I
 
 **Changes:**
 * Removed QuadCrate because I am lazy to adapt struct between 1.19 and 1.16.
+* Add guaranteed bonus. Please check [wiki](https://github.com/MrXiaoM/CrazyCratesLegacy/wiki) for usage.
 
 <!-- TABLE OF CONTENTS -->
 <details>
