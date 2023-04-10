@@ -94,7 +94,7 @@ Distributed under the MIT License. See [`LICENSE`](/LICENSE) for more informatio
 
 [forks-shield]: https://img.shields.io/github/forks/MrXiaoM/CrazyCratesLegacy.svg?style=flat&logo=appveyor
 
-[forks-url]: https://github.com/MrXiaoMxLegacy/network/members
+[forks-url]: https://github.com/MrXiaoM/CrazyCratesLegacy/network/members
 
 [stars-shield]: https://img.shields.io/github/stars/MrXiaoM/CrazyCratesLegacy.svg?style=flat&logo=appveyor
 
