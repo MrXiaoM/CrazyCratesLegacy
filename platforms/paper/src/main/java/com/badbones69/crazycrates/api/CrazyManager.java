@@ -33,6 +33,7 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
@@ -168,7 +169,10 @@ public class CrazyManager {
                             file.getBoolean(path + ".Firework"),
                             file.getStringList(path + ".BlackListed-Permissions"),
                             prizeTiers,
-                            altPrize));
+                            altPrize,
+                            file.getString(path + ".Special.Permission", null),
+                            file.getStringList(path + ".Special.Messages"),
+                            file.getStringList(path + ".Special.Commands")));
                 }
 
                 int newPlayersKeys = file.getInt("Crate.StartingKeys");
@@ -609,6 +613,7 @@ public class CrazyManager {
             String id = file.getString("Crate.Prizes." + reward + ".DisplayItem", "Stone");
             String name = file.getString("Crate.Prizes." + reward + ".DisplayName", "");
             List<String> lore = file.getStringList("Crate.Prizes." + reward + ".Lore");
+            Integer customModelData = file.getInt("Crate.Prizes." + reward + ".CustomModelData", 0);
             HashMap<Enchantment, Integer> enchantments = new HashMap<>();
             String player = file.getString("Crate.Prizes." + reward + ".Player", "");
             boolean glowing = file.getBoolean("Crate.Prizes." + reward + ".Glowing");
@@ -625,7 +630,23 @@ public class CrazyManager {
             }
 
             try {
-                inv.setItem(inv.firstEmpty(), new ItemBuilder().setMaterial(id).setAmount(amount).setName(name).setLore(lore).setUnbreakable(unbreakable).hideItemFlags(hideItemFlags).setEnchantments(enchantments).setGlow(glowing).setPlayerName(player).build());
+                ItemStack itemStack = new ItemBuilder()
+                        .setMaterial(id)
+                        .setAmount(amount)
+                        .setName(name)
+                        .setLore(lore)
+                        .setUnbreakable(unbreakable)
+                        .hideItemFlags(hideItemFlags)
+                        .setEnchantments(enchantments)
+                        .setGlow(glowing)
+                        .setPlayerName(player)
+                        .build();
+                if (customModelData > 0) {
+                    ItemMeta meta = itemStack.getItemMeta();
+                    meta.setCustomModelData(customModelData);
+                    itemStack.setItemMeta(meta);
+                }
+                inv.setItem(inv.firstEmpty(), itemStack);
             } catch (Exception e) {
                 inv.addItem(new ItemBuilder().setMaterial(Material.RED_TERRACOTTA).setName("&c&lERROR").setLore(Arrays.asList("&cThere is an error", "&cFor the reward: &c" + reward)).build());
             }
@@ -676,7 +697,15 @@ public class CrazyManager {
                 }
             }
 
-            for (String command : prize.getCommands()) { // /give %player% iron %random%:1-64
+            List<String> commands, messages;
+            if (prize.getSpecialPermission() != null && player.hasPermission(prize.getSpecialPermission())) {
+                commands = prize.getSpecialCommands();
+                messages = prize.getSpecialMessages();
+            } else {
+                commands = prize.getCommands();
+                messages = prize.getMessages();
+            }
+            for (String command : commands) { // /give %player% iron %random%:1-64
                 if (command.contains("%random%:")) {
                     String cmd = command;
                     StringBuilder commandBuilder = new StringBuilder();
@@ -709,7 +738,7 @@ public class CrazyManager {
                 Methods.sendCommand(command.replaceAll("%player%", player.getName()).replaceAll("%Player%", player.getName()).replaceAll("%reward%", quoteReplacement(prize.getDisplayItemBuilder().getUpdatedName())));
             }
 
-            for (String message : prize.getMessages()) {
+            for (String message : messages) {
                 if (PluginSupport.PLACEHOLDERAPI.isPluginEnabled()) {
                     message = PlaceholderAPI.setPlaceholders(player, message);
                 }

@@ -24,6 +24,9 @@ public class Prize {
     private final List<ItemBuilder> itemBuilders;
     private final Prize altPrize;
     private final List<String> blackListPermissions;
+    private final String specialPermission;
+    private final List<String> specialMessages;
+    private final List<String> specialCommands;
 
     /**
      * Create a new prize.
@@ -49,6 +52,9 @@ public class Prize {
         this.displayItem = new ItemBuilder();
         this.blackListPermissions = new ArrayList<>();
         this.altPrize = null;
+        this.specialPermission = null;
+        this.specialMessages = new ArrayList<>();
+        this.specialCommands = new ArrayList<>();
     }
 
     /**
@@ -67,7 +73,7 @@ public class Prize {
      */
     public Prize(String name, ItemBuilder displayItem, List<String> messages, List<String> commands,
                  List<ItemStack> items, List<ItemBuilder> itemBuilders, String crate, int chance, int bonusChance, int maxRange, boolean firework, List<String> blackListPermissions,
-                 List<Tier> tiers, Prize altPrize) {
+                 List<Tier> tiers, Prize altPrize, String specialPermission, List<String> specialMessages, List<String> specialCommands) {
         this.name = name != null ? name : "&4No name Found!";
         this.crate = crate;
         this.items = items != null ? items : new ArrayList<>();
@@ -83,6 +89,9 @@ public class Prize {
         this.blackListPermissions = blackListPermissions != null ? blackListPermissions : new ArrayList<>();
         this.blackListPermissions.replaceAll(String::toLowerCase);
         this.altPrize = altPrize;
+        this.specialPermission = specialPermission;
+        this.specialMessages = specialMessages;
+        this.specialCommands = specialCommands;
     }
 
     /**
@@ -169,8 +178,20 @@ public class Prize {
         return bonusChance;
     }
 
+    public String getSpecialPermission() {
+        return specialPermission;
+    }
+
+    public List<String> getSpecialMessages() {
+        return specialMessages;
+    }
+
+    public List<String> getSpecialCommands() {
+        return specialCommands;
+    }
+
     public Prize bonus() {
-        return new Prize(name, displayItem, messages, commands, items, itemBuilders, crate, bonusChance, -1, maxRange, firework, blackListPermissions, tiers, altPrize);
+        return new Prize(name, displayItem, messages, commands, items, itemBuilders, crate, bonusChance, -1, maxRange, firework, blackListPermissions, tiers, altPrize, specialPermission, specialMessages, specialCommands);
     }
 
     /**

@@ -12,6 +12,7 @@ import com.badbones69.crazycrates.support.libraries.PluginSupport;
 import com.badbones69.crazycrates.support.libraries.UpdateChecker;
 import com.badbones69.crazycrates.support.placeholders.PlaceholderAPISupport;
 import com.google.common.collect.Lists;
+import de.tr7zw.changeme.nbtapi.utils.MinecraftVersion;
 import dev.triumphteam.cmd.bukkit.BukkitCommandManager;
 import dev.triumphteam.cmd.bukkit.message.BukkitMessageKey;
 import dev.triumphteam.cmd.core.message.MessageKey;
@@ -37,6 +38,14 @@ public class CrazyCrates extends JavaPlugin implements Listener {
     private Starter starter;
 
     BukkitCommandManager<CommandSender> manager = BukkitCommandManager.create(this);
+
+    @Override
+    public void onLoad() {
+        MinecraftVersion.replaceLogger(getLogger());
+        MinecraftVersion.disableUpdateCheck();
+        MinecraftVersion.disableBStats();
+        MinecraftVersion.getVersion();
+    }
 
     @Override
     public void onEnable() {

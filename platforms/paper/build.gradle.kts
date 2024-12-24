@@ -16,8 +16,8 @@ dependencies {
 
     compileOnly(libs.holographic.displays)
     compileOnly(libs.decent.holograms)
-    compileOnly(libs.cmi.api)
     compileOnly(libs.cmi.lib)
+    compileOnly(fileTree("libs"))
 
     compileOnly(libs.placeholder.api)
 

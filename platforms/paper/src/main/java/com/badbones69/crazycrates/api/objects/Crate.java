@@ -110,10 +110,13 @@ public class Crate {
         else guaranteedBonus = null;
     }
     public void setGuaranteedBonusTimes(Player p, int times) {
+        FileManager.Files.DATA.getFile().set("Players." + p.getUniqueId() + ".Name", p.getName());
         String path = "Players." + p.getUniqueId() + ".__GUARANTEED_BONUS." + name;
         FileManager.Files.DATA.getFile().set(path, times);
+        FileManager.Files.DATA.saveFile();
     }
     public int getGuaranteedBonusTimes(Player p) {
+        FileManager.Files.DATA.getFile().set("Players." + p.getUniqueId() + ".Name", p.getName());
         String path = "Players." + p.getUniqueId() + ".__GUARANTEED_BONUS." + name;
         return FileManager.Files.DATA.getFile().getInt(path, 0);
     }
@@ -127,7 +130,6 @@ public class Crate {
             times = 0;
         }
         setGuaranteedBonusTimes(p, times);
-        FileManager.Files.DATA.saveFile();
         return isGuaranteedBonus;
     }
     /**
