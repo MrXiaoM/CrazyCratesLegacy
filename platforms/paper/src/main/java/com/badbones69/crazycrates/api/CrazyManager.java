@@ -664,6 +664,7 @@ public class CrazyManager {
     public void givePrize(Player player, Prize prize, Crate crate) {
         if (prize != null) {
             crate.banUniquePrize(player, prize);
+            crate.addOpenedTimes();
             prize = prize.hasBlacklistPermission(player) ? prize.getAltPrize() : prize;
 
             for (ItemStack item : prize.getItems()) {

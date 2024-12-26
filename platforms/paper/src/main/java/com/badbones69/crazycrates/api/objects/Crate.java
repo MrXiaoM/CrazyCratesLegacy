@@ -57,6 +57,7 @@ public class Crate {
     public final Crate guaranteedBonus;
     private boolean unique;
     private Map<Integer, Integer> uniquePrice;
+    private Map<Integer, Map<String, Integer>> chanceByTimes;
     /**
      * @param name      The name of the crate.
      * @param crateType The crate type of the crate.
@@ -124,6 +125,33 @@ public class Crate {
                 uniquePrice.put(i, price);
             }
         }
+        chanceByTimes = new HashMap<>();
+        if (file != null) {
+            ConfigurationSection section = file.getConfigurationSection("Crate.ChanceByTimes");
+            if (section != null) for (String times : section.getKeys(false)) {
+                List<Integer> list = new ArrayList<>();
+                for (String s : times.split(",")) {
+                    int i;
+                    try {
+                        i = Integer.parseInt(s.trim());
+                    } catch (NumberFormatException ignored) {
+                        continue;
+                    }
+                    list.add(i);
+                }
+                if (list.isEmpty()) continue;
+                ConfigurationSection section1 = section.getConfigurationSection(times);
+                if (section1 == null) continue;
+                Map<String, Integer> chanceMap = new HashMap<>();
+                for (String prizeName : section1.getKeys(false)) {
+                    int chance = section1.getInt(prizeName);
+                    chanceMap.put(prizeName, chance);
+                }
+                for (Integer i : list) {
+                    chanceByTimes.put(i, chanceMap);
+                }
+            }
+        }
     }
 
     public boolean isUnique() {
@@ -143,6 +171,15 @@ public class Crate {
             FileManager.Files.DATA.getFile().set("Players." + player.getUniqueId() + ".UniqueList." + name, bannedPrizes);
             FileManager.Files.DATA.saveFile();
         }
+    }
+
+    public void addOpenedTimes() {
+        int times = getOpenedTimes();
+        FileManager.Files.DATA.getFile().set("Crates." + name + ".OpenedTimes", times + 1);
+    }
+
+    public int getOpenedTimes() {
+        return FileManager.Files.DATA.getFile().getInt("Crates." + name + ".OpenedTimes", 0);
     }
 
     public void setGuaranteedBonusTimes(Player p, int times) {
@@ -257,11 +294,20 @@ public class Crate {
         }
     }
 
+    private int getChance(Prize prize, int openTimes) {
+        Map<String, Integer> chanceMap = chanceByTimes.get(openTimes);
+        if (chanceMap == null) {
+            return prize.getChance();
+        }
+        return chanceMap.getOrDefault(prize.getName(), prize.getChance());
+    }
+
     private void chanceCheck(ArrayList<Prize> prizes, ArrayList<Prize> usablePrizes) {
+        int openTimes = getOpenedTimes() + 1;
         for (int stop = 0; prizes.isEmpty() && stop <= 2000; stop++) {
             for (Prize prize : usablePrizes) {
                 int max = prize.getMaxRange();
-                int chance = prize.getChance();
+                int chance = getChance(prize, openTimes);
                 int num;
 
                 for (int counter = 1; counter <= 1; counter++) {
