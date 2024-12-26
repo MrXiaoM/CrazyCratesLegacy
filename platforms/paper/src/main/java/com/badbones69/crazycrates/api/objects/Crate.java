@@ -12,6 +12,7 @@ import com.google.common.collect.Lists;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -19,10 +20,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Crate {
@@ -57,6 +55,8 @@ public class Crate {
     private int maxMassOpen;
     private int guaranteedBonusTimes;
     public final Crate guaranteedBonus;
+    private boolean unique;
+    private Map<Integer, Integer> uniquePrice;
     /**
      * @param name      The name of the crate.
      * @param crateType The crate type of the crate.
@@ -108,7 +108,43 @@ public class Crate {
             guaranteedBonus = new Crate(name, previewName, crateType, key, bonusPrize, file, newPlayerKeys, tiers, maxMassOpen, null, -1);
         }
         else guaranteedBonus = null;
+
+        unique = file != null && file.getBoolean("Crate.Unique.Enable", false);
+        uniquePrice = new HashMap<>();
+        if (unique) {
+            ConfigurationSection section = file.getConfigurationSection("Crate.Unique.PriceList");
+            if (section != null) for (String times : section.getKeys(false)) {
+                int i;
+                try {
+                    i = Integer.parseInt(times);
+                } catch (NumberFormatException ignored) {
+                    continue;
+                }
+                int price = section.getInt(times);
+                uniquePrice.put(i, price);
+            }
+        }
     }
+
+    public boolean isUnique() {
+        return unique;
+    }
+
+    public int getPrice(int times) {
+        Integer i = uniquePrice.get(times);
+        return i == null ? uniquePrice.getOrDefault(1, 0) : i;
+    }
+
+    public void banUniquePrize(Player player, Prize prize) {
+        if (isUnique()) {
+            List<String> bannedPrizes = FileManager.Files.DATA.getFile().getStringList("Players." + player.getUniqueId() + ".UniqueList." + name);
+            bannedPrizes.add(prize.getName());
+            FileManager.Files.DATA.getFile().set("Players." + player.getUniqueId() + ".Name", player.getName());
+            FileManager.Files.DATA.getFile().set("Players." + player.getUniqueId() + ".UniqueList." + name, bannedPrizes);
+            FileManager.Files.DATA.saveFile();
+        }
+    }
+
     public void setGuaranteedBonusTimes(Player p, int times) {
         FileManager.Files.DATA.getFile().set("Players." + p.getUniqueId() + ".Name", p.getName());
         String path = "Players." + p.getUniqueId() + ".__GUARANTEED_BONUS." + name;
@@ -204,6 +240,11 @@ public class Crate {
                 usablePrizes.add(prize);
             }
         }
+        // ================= Unique Check =================== //
+        if (isUnique()) {
+            List<String> bannedPrizes = FileManager.Files.DATA.getFile().getStringList("Players." + player.getUniqueId() + ".UniqueList." + name);
+            usablePrizes.removeIf(it -> bannedPrizes.contains(it.getName()));
+        }
 
         // ================= Chance Check ================= //
         chanceCheck(prizes, usablePrizes);
@@ -217,7 +258,7 @@ public class Crate {
     }
 
     private void chanceCheck(ArrayList<Prize> prizes, ArrayList<Prize> usablePrizes) {
-        for (int stop = 0; prizes.size() == 0 && stop <= 2000; stop++) {
+        for (int stop = 0; prizes.isEmpty() && stop <= 2000; stop++) {
             for (Prize prize : usablePrizes) {
                 int max = prize.getMaxRange();
                 int chance = prize.getChance();
