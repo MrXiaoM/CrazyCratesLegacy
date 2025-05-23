@@ -7,6 +7,7 @@ import com.badbones69.crazycrates.commands.subs.CrateBaseCommand;
 import com.badbones69.crazycrates.commands.subs.player.BaseKeyCommand;
 import com.badbones69.crazycrates.cratetypes.*;
 import com.badbones69.crazycrates.listeners.*;
+import com.badbones69.crazycrates.support.AdventureUtil;
 import com.badbones69.crazycrates.support.MetricsHandler;
 import com.badbones69.crazycrates.support.libraries.PluginSupport;
 import com.badbones69.crazycrates.support.libraries.UpdateChecker;
@@ -49,6 +50,7 @@ public class CrazyCrates extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        AdventureUtil.init();
         plugin = this;
 
         starter = new Starter();
@@ -137,14 +139,6 @@ public class CrazyCrates extends JavaPlugin implements Listener {
             plugin.getLogger().warning("========================================================================");
         }
 
-        if (metricsEnabled) {
-            MetricsHandler metricsHandler = new MetricsHandler();
-
-            metricsHandler.start();
-        }
-
-        checkUpdate();
-
         enable();
     }
 
@@ -160,33 +154,6 @@ public class CrazyCrates extends JavaPlugin implements Listener {
     public void onPlayerJoin(PlayerJoinEvent e) {
         starter.getCrazyManager().setNewPlayerKeys(e.getPlayer());
         starter.getCrazyManager().loadOfflinePlayersKeys(e.getPlayer());
-    }
-
-    private void checkUpdate() {
-        FileConfiguration config = Files.CONFIG.getFile();
-
-        boolean updaterEnabled = config.getBoolean("Settings.Update-Checker");
-
-        if (!updaterEnabled) return;
-
-        getServer().getScheduler().runTaskAsynchronously(plugin, () -> {
-            UpdateChecker updateChecker = new UpdateChecker(17599);
-
-            try {
-                if (updateChecker.hasUpdate() && !getDescription().getVersion().contains("Beta")) {
-                    getLogger().warning("CrazyCrates has a new update available! New version: " + updateChecker.getNewVersion());
-                    getLogger().warning("Current Version: v" + getDescription().getVersion());
-                    getLogger().warning("Download: " + updateChecker.getResourcePage());
-
-                    return;
-                }
-
-                getLogger().info("Plugin is up to date! - " + updateChecker.getNewVersion());
-            } catch (Exception exception) {
-                getLogger().warning("Could not check for updates! Perhaps the call failed or you are using a snapshot build:");
-                getLogger().warning("You can turn off the update checker in config.yml if on a snapshot build.");
-            }
-        });
     }
 
     public void cleanFiles() {
