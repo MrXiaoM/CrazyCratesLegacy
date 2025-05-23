@@ -16,11 +16,9 @@ dependencies {
     implementation(libs.triumph.cmds)
 
     implementation(libs.nbt.api)
-    implementation(libs.bstats.bukkit)
 
     compileOnly(libs.holographic.displays)
     compileOnly(libs.decent.holograms)
-    compileOnly(libs.cmi.lib)
     compileOnly(fileTree("libs"))
 
     compileOnly(libs.placeholder.api)
@@ -37,7 +35,6 @@ tasks {
 
         listOf(
             "de.tr7zw.changeme.nbtapi",
-            "org.bstats",
             "dev.triumphteam.cmd"
         ).forEach { relocate(it, "${rootProject.group}.library.$it") }
     }

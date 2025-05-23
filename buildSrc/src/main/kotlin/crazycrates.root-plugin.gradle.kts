@@ -3,19 +3,21 @@ plugins {
 
     id("com.github.hierynomus.license")
 
-    id("com.github.johnrengelman.shadow")
+    id("com.gradleup.shadow")
 }
 
 repositories {
+    mavenLocal()
+    if (java.util.Locale.getDefault().country == "CN") {
+        maven("https://mirrors.huaweicloud.com/repository/maven/")
+    }
+    mavenCentral()
     maven("https://repo.triumphteam.dev/snapshots/")
+    maven("https://repo.helpch.at/releases/")
     maven("https://repo.codemc.io/repository/maven-public/")
-    maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://libraries.minecraft.net/")
-    //maven("https://repo.crazycrew.us/api/")
     maven("https://jitpack.io/")
-    mavenCentral()
-    mavenLocal()
 }
 
 val javaVersion = JavaVersion.VERSION_17
