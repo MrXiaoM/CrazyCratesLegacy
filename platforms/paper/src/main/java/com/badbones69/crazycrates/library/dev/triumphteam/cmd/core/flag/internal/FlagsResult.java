@@ -27,11 +27,7 @@ import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.flag.Flags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Implementation of the {@link Flags} which will be passed to the command method.

@@ -36,29 +36,12 @@ import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.message.conte
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.processor.AbstractSubCommandProcessor;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.requirement.Requirement;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.sender.SenderValidator;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.annotation.Default;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.argument.InternalArgument;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.exceptions.CommandExecutionException;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.execution.ExecutionProvider;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.argument.LimitlessInternalArgument;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.argument.StringInternalArgument;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.message.MessageKey;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.message.MessageRegistry;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.message.context.DefaultMessageContext;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.message.context.InvalidArgumentContext;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.processor.AbstractSubCommandProcessor;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.requirement.Requirement;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.sender.SenderValidator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**

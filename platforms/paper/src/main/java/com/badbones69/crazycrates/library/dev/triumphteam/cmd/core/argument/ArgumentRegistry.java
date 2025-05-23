@@ -23,11 +23,11 @@
  */
 package com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.argument;
 
+import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.registry.Registry;
 import com.google.common.primitives.Doubles;
 import com.google.common.primitives.Floats;
 import com.google.common.primitives.Ints;
 import com.google.common.primitives.Longs;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.registry.Registry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

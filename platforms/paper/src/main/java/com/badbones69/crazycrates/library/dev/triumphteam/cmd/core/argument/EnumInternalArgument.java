@@ -25,15 +25,11 @@ package com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.argument;
 
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.Suggestion;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.util.EnumUtils;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.Suggestion;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.ref.WeakReference;
 import java.util.Objects;
-
-import static com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.util.EnumUtils.getEnumConstants;
-import static com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.util.EnumUtils.populateCache;
 
 /**
  * An argument type for {@link Enum}s.

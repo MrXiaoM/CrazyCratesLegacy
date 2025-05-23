@@ -25,8 +25,6 @@ package com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.argument;
 
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.Suggestion;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.SuggestionContext;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.Suggestion;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.SuggestionContext;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

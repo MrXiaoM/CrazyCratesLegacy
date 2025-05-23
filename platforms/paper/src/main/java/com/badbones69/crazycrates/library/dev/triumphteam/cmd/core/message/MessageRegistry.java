@@ -24,7 +24,6 @@
 package com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.message;
 
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.message.context.MessageContext;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.message.context.MessageContext;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.registry.Registry;
 import org.jetbrains.annotations.NotNull;
 

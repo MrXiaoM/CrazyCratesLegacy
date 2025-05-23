@@ -28,19 +28,10 @@ import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.argument.name
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.argument.named.NamedArgumentResult;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.EmptySuggestion;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.SuggestionContext;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.argument.named.Arguments;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.argument.named.NamedArgumentParser;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.argument.named.NamedArgumentResult;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.EmptySuggestion;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.SuggestionContext;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public final class NamedInternalArgument<S> extends LimitlessInternalArgument<S> {

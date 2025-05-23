@@ -24,7 +24,6 @@
 package com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.flag;
 
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.registry.RegistryKey;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.registry.RegistryKey;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 

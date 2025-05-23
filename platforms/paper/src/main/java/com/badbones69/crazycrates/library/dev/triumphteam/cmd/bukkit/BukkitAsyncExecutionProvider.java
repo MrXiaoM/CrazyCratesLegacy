@@ -24,7 +24,6 @@
 package com.badbones69.crazycrates.library.dev.triumphteam.cmd.bukkit;
 
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.execution.ExecutionProvider;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.execution.ExecutionProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;

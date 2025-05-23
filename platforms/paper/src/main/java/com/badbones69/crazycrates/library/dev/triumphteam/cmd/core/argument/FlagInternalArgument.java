@@ -29,21 +29,10 @@ import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.flag.internal
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.flag.internal.FlagParser;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.EmptySuggestion;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.SuggestionContext;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.flag.Flags;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.flag.internal.FlagGroup;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.flag.internal.FlagOptions;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.flag.internal.FlagParser;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.EmptySuggestion;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.SuggestionContext;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**

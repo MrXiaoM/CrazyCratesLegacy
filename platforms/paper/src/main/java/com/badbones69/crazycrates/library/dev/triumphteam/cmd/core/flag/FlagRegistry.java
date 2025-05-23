@@ -23,7 +23,6 @@
  */
 package com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.flag;
 
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.SuggestionResolver;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.registry.Registry;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.SuggestionResolver;
 import org.jetbrains.annotations.NotNull;

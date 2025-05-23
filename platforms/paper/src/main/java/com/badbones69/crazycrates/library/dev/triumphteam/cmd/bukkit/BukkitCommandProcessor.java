@@ -23,12 +23,6 @@
  */
 package com.badbones69.crazycrates.library.dev.triumphteam.cmd.bukkit;
 
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.BaseCommand;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.execution.ExecutionProvider;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.processor.AbstractCommandProcessor;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.registry.RegistryContainer;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.sender.SenderMapper;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.sender.SenderValidator;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.bukkit.annotation.Permission;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.BaseCommand;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.execution.ExecutionProvider;
@@ -42,7 +36,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 final class BukkitCommandProcessor<S> extends AbstractCommandProcessor<CommandSender, S, BukkitSubCommand<S>, BukkitSubCommandProcessor<S>> {

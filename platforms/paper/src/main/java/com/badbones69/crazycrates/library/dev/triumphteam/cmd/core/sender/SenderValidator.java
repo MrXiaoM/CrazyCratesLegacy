@@ -25,8 +25,6 @@ package com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.sender;
 
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.SubCommand;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.message.MessageRegistry;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.SubCommand;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.message.MessageRegistry;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;

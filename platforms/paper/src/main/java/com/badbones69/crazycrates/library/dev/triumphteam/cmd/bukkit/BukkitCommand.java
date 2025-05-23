@@ -23,14 +23,6 @@
  */
 package com.badbones69.crazycrates.library.dev.triumphteam.cmd.bukkit;
 
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.Command;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.SubCommand;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.annotation.Default;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.exceptions.CommandExecutionException;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.message.MessageKey;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.message.MessageRegistry;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.message.context.DefaultMessageContext;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.sender.SenderMapper;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.bukkit.message.BukkitMessageKey;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.bukkit.message.NoPermissionMessageContext;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.Command;
@@ -45,7 +37,10 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyList;

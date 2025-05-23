@@ -28,11 +28,6 @@ import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.BaseCommand;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.processor.AbstractSubCommandProcessor;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.registry.RegistryContainer;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.sender.SenderValidator;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.bukkit.annotation.Permission;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.BaseCommand;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.processor.AbstractSubCommandProcessor;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.registry.RegistryContainer;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.sender.SenderValidator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

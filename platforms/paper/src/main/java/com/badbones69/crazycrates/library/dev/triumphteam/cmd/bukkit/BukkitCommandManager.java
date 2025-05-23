@@ -23,15 +23,6 @@
  */
 package com.badbones69.crazycrates.library.dev.triumphteam.cmd.bukkit;
 
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.BaseCommand;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.CommandManager;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.exceptions.CommandRegistrationException;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.execution.ExecutionProvider;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.execution.SyncExecutionProvider;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.message.MessageKey;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.registry.RegistryContainer;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.sender.SenderMapper;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.sender.SenderValidator;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.bukkit.message.BukkitMessageKey;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.BaseCommand;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.CommandManager;
@@ -57,7 +48,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public final class BukkitCommandManager<S> extends CommandManager<CommandSender, S> {

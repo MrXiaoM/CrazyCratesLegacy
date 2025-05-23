@@ -24,7 +24,6 @@
 package com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.util;
 
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.exceptions.CommandRegistrationException;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.exceptions.CommandRegistrationException;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.ref.WeakReference;

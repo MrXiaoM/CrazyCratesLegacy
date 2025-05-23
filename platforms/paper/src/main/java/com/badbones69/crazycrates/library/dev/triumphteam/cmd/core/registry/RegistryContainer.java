@@ -23,9 +23,6 @@
  */
 package com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.registry;
 
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.argument.named.NamedArgumentRegistry;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.requirement.RequirementRegistry;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.SuggestionRegistry;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.argument.ArgumentRegistry;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.argument.named.NamedArgumentRegistry;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.message.MessageRegistry;

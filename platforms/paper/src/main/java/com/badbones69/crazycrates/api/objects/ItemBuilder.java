@@ -1,7 +1,6 @@
 package com.badbones69.crazycrates.api.objects;
 
 import com.badbones69.crazycrates.MMO;
-import com.badbones69.crazycrates.Methods;
 import com.badbones69.crazycrates.support.AdventureUtil;
 import com.badbones69.crazycrates.support.SkullCreator;
 import com.badbones69.crazycrates.support.libraries.PluginSupport;
@@ -24,7 +23,10 @@ import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class ItemBuilder {

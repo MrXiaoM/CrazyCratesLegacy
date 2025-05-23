@@ -36,19 +36,6 @@ import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.sender.Sender
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.sender.SenderValidator;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.SuggestionKey;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.SuggestionResolver;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.argument.ArgumentResolver;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.argument.named.Argument;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.argument.named.ArgumentKey;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.message.ContextualKey;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.message.MessageResolver;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.message.context.MessageContext;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.registry.RegistryContainer;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.requirement.RequirementKey;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.requirement.RequirementResolver;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.sender.SenderMapper;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.sender.SenderValidator;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.SuggestionKey;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.suggestion.SuggestionResolver;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;

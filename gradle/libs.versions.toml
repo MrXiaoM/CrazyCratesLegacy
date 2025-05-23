@@ -13,9 +13,6 @@ papermc = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
 kyori = { module = "net.kyori:adventure-api", version.ref = "kyori" }
 kyori-mm = { module = "net.kyori:adventure-text-minimessage", version.ref = "kyori" }
 
-# Triumph Team
-triumph_cmds = { module = "dev.triumphteam:triumph-cmd-bukkit", version = "2.0.0-SNAPSHOT" }
-
 # Misc
 nbt_api = { module = "de.tr7zw:item-nbt-api", version.ref = "nbt_api" }
 

@@ -23,8 +23,8 @@
  */
 package com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.flag.internal;
 
-import com.google.common.collect.Maps;
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.flag.Flags;
+import com.google.common.collect.Maps;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

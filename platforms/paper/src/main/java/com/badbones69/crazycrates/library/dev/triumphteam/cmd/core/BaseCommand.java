@@ -24,7 +24,6 @@
 package com.badbones69.crazycrates.library.dev.triumphteam.cmd.core;
 
 import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.annotation.Command;
-import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.annotation.Command;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
