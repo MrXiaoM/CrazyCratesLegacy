@@ -13,8 +13,6 @@ dependencies {
 
     compileOnly(libs.papermc)
 
-    implementation(libs.triumph.cmds)
-
     implementation(libs.nbt.api)
 
     compileOnly(libs.holographic.displays)

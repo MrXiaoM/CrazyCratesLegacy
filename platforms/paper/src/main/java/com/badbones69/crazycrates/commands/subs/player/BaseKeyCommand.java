@@ -5,12 +5,12 @@ import com.badbones69.crazycrates.api.CrazyManager;
 import com.badbones69.crazycrates.api.enums.settings.Messages;
 import com.badbones69.crazycrates.api.objects.Crate;
 import com.google.common.collect.Lists;
-import dev.triumphteam.cmd.bukkit.annotation.Permission;
-import dev.triumphteam.cmd.core.BaseCommand;
-import dev.triumphteam.cmd.core.annotation.Command;
-import dev.triumphteam.cmd.core.annotation.Default;
-import dev.triumphteam.cmd.core.annotation.SubCommand;
-import dev.triumphteam.cmd.core.annotation.Suggestion;
+import com.badbones69.crazycrates.library.dev.triumphteam.cmd.bukkit.annotation.Permission;
+import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.BaseCommand;
+import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.annotation.Command;
+import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.annotation.Default;
+import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.annotation.SubCommand;
+import com.badbones69.crazycrates.library.dev.triumphteam.cmd.core.annotation.Suggestion;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
