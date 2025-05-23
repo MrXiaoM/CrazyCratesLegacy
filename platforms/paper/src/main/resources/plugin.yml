@@ -8,7 +8,7 @@ api-version: '1.13'
 description: ${description}
 website: ${website}
 
-softdepend: [ CMI, HolographicDisplays, DecentHolograms, PlaceholderAPI, ItemsAdder ]
+softdepend: [ CMI, HolographicDisplays, DecentHolograms, PlaceholderAPI, ItemsAdder, MythicLib, MMOItems ]
 
 commands:
   crates:

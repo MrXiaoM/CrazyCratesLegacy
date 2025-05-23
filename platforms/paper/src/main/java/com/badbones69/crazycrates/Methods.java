@@ -15,6 +15,7 @@ import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.RemoteConsoleCommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
@@ -23,6 +24,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -38,17 +40,8 @@ public class Methods {
     private static final CrazyManager crazyManager = plugin.getStarter().getCrazyManager();
     private static final Random random = new Random();
 
-    public final static Pattern HEX_PATTERN = Pattern.compile("#[a-fA-F\\d]{6}");
-
     public static String color(String message) {
-        Matcher matcher = HEX_PATTERN.matcher(message);
-        StringBuffer buffer = new StringBuffer();
-
-        while (matcher.find()) {
-            matcher.appendReplacement(buffer, net.md_5.bungee.api.ChatColor.of(matcher.group()).toString());
-        }
-
-        return ChatColor.translateAlternateColorCodes('&', matcher.appendTail(buffer).toString());
+        return ChatColor.translateAlternateColorCodes('&', message);
     }
 
     public static void broadCastMessage(FileConfiguration crateFile, Player player) {
@@ -94,6 +87,16 @@ public class Methods {
         return ChatColor.stripColor(msg);
     }
 
+    public static String @Nullable [] getMMOItem(ConfigurationSection section, String key) {
+        String mmoItem = section.getString(key);
+        if (mmoItem != null && mmoItem.contains(":")) {
+            String[] split = mmoItem.split(":", 2);
+            return split;
+        } else {
+            return null;
+        }
+    }
+
     public static HashMap<ItemStack, String> getItems(Player player) {
         HashMap<ItemStack, String> items = new HashMap<>();
         FileConfiguration file = crazyManager.getOpeningCrate(player).getFile();
@@ -101,6 +104,7 @@ public class Methods {
         for (String reward : file.getConfigurationSection("Crate.Prizes").getKeys(false)) {
             String id = file.getString("Crate.Prizes." + reward + ".DisplayItem");
             String name = file.getString("Crate.Prizes." + reward + ".DisplayName");
+            String[] mmoItem = getMMOItem(file, "Crate.Prizes." + reward + ".MMOItem");
             int chance = file.getInt("Crate.Prizes." + reward + ".Chance");
             int max = 99;
 
@@ -109,7 +113,14 @@ public class Methods {
             }
 
             try {
-                ItemStack item = new ItemBuilder().setMaterial(id).setName(name).build();
+                ItemBuilder builder = new ItemBuilder();
+                if (mmoItem != null) {
+                    builder.setMMOItem(mmoItem[0], mmoItem[1]);
+                } else {
+                    builder.setMaterial(id).setName(name).build();
+                }
+                ItemStack item = builder.build();
+
                 int num;
 
                 for (int counter = 1; counter <= 1; counter++) {

@@ -612,6 +612,21 @@ public class CrazyManager {
         for (String reward : file.getConfigurationSection("Crate.Prizes").getKeys(false)) {
             String id = file.getString("Crate.Prizes." + reward + ".DisplayItem", "Stone");
             String name = file.getString("Crate.Prizes." + reward + ".DisplayName", "");
+            String mmoType, mmoId;
+            if (file.contains("Crate.Prizes." + reward + ".MMOItem")) {
+                String mmoItem = file.getString("Crate.Prizes." + reward + ".MMOItem", "");
+                if (mmoItem.contains(":")) {
+                    String[] split = mmoItem.split(":", 2);
+                    mmoType = split[0];
+                    mmoId = split[1];
+                } else {
+                    mmoType = null;
+                    mmoId = null;
+                }
+            } else {
+                mmoType = null;
+                mmoId = null;
+            }
             List<String> lore = file.getStringList("Crate.Prizes." + reward + ".Lore");
             Integer customModelData = file.getInt("Crate.Prizes." + reward + ".CustomModelData", 0);
             HashMap<Enchantment, Integer> enchantments = new HashMap<>();
@@ -630,10 +645,15 @@ public class CrazyManager {
             }
 
             try {
-                ItemStack itemStack = new ItemBuilder()
-                        .setMaterial(id)
+                ItemBuilder itemBuilder = new ItemBuilder();
+                if (mmoType != null && mmoId != null) {
+                    itemBuilder.setMMOItem(mmoType, mmoId);
+                } else {
+                    itemBuilder.setMaterial(id)
+                            .setName(name);
+                }
+                ItemStack itemStack = itemBuilder
                         .setAmount(amount)
-                        .setName(name)
                         .setLore(lore)
                         .setUnbreakable(unbreakable)
                         .hideItemFlags(hideItemFlags)
@@ -648,7 +668,14 @@ public class CrazyManager {
                 }
                 inv.setItem(inv.firstEmpty(), itemStack);
             } catch (Exception e) {
-                inv.addItem(new ItemBuilder().setMaterial(Material.RED_TERRACOTTA).setName("&c&lERROR").setLore(Arrays.asList("&cThere is an error", "&cFor the reward: &c" + reward)).build());
+                inv.addItem(new ItemBuilder()
+                        .setMaterial(Material.RED_TERRACOTTA)
+                        .setName("&c&lERROR")
+                        .setLore(Arrays.asList(
+                                "&cThere is an error",
+                                "&cFor the reward: &c" + reward,
+                                "&e" + e
+                        )).build());
             }
         }
 
@@ -1293,9 +1320,16 @@ public class CrazyManager {
         ItemBuilder itemBuilder = new ItemBuilder();
 
         try {
-            itemBuilder.setMaterial(file.getString(path + "DisplayItem"))
-                    .setAmount(file.getInt(path + "DisplayAmount", 1))
-                    .setName(file.getString(path + "DisplayName"))
+            String mmoItem = file.getString(path + "MMOItem", null);
+            if (mmoItem != null && mmoItem.contains(":")) {
+                String[] split = mmoItem.split(":", 2);
+                itemBuilder.setMMOItem(split[0], split[1]);
+            } else {
+                itemBuilder.setMaterial(file.getString(path + "DisplayItem"))
+                        .setName(file.getString(path + "DisplayName"));
+            }
+
+            itemBuilder.setAmount(file.getInt(path + "DisplayAmount", 1))
                     .setLore(file.getStringList(path + "Lore"))
                     .setGlow(file.getBoolean(path + "Glowing"))
                     .setUnbreakable(file.getBoolean(path + "Unbreakable"))
@@ -1316,7 +1350,13 @@ public class CrazyManager {
 
             return itemBuilder;
         } catch (Exception e) {
-            return new ItemBuilder().setMaterial(Material.RED_TERRACOTTA).setName("&c&lERROR").setLore(Arrays.asList("&cThere is an error", "&cFor the reward: &c" + prize));
+            return new ItemBuilder().setMaterial(Material.RED_TERRACOTTA)
+                    .setName("&c&lERROR")
+                    .setLore(Arrays.asList(
+                            "&cThere is an error",
+                            "&cFor the reward: &c" + prize,
+                            "&e" + e
+                    ));
         }
     }
 

@@ -4,6 +4,10 @@ plugins {
     id("crazycrates.paper-plugin")
 }
 
+repositories {
+    maven("https://nexus.phoenixdevt.fr/repository/maven-public/")
+}
+
 dependencies {
     api(project(":crazycrates-api"))
 
@@ -22,6 +26,9 @@ dependencies {
     compileOnly(libs.placeholder.api)
 
     compileOnly(libs.itemsadder.api)
+
+    compileOnly("io.lumine:MythicLib-dist:1.6.2-SNAPSHOT")
+    compileOnly("net.Indyuce:MMOItems-API:6.10-SNAPSHOT")
 }
 
 tasks {
@@ -36,14 +43,16 @@ tasks {
     }
 
     processResources {
-        filesMatching("plugin.yml") {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        from(sourceSets.main.get().resources.srcDirs) {
             expand(
                 "name" to rootProject.name,
                 "group" to rootProject.group,
                 "version" to rootProject.version,
                 "description" to rootProject.description,
-                "website" to "https://pds.ink"
+                "website" to "https://www.mcio.dev"
             )
+            include("plugin.yml")
         }
     }
 }

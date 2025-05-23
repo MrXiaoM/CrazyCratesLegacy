@@ -1,9 +1,13 @@
 package com.badbones69.crazycrates.api.objects;
 
+import com.badbones69.crazycrates.MMO;
 import com.badbones69.crazycrates.Methods;
+import com.badbones69.crazycrates.support.AdventureUtil;
 import com.badbones69.crazycrates.support.SkullCreator;
 import com.badbones69.crazycrates.support.libraries.PluginSupport;
+import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.NBTItem;
+import de.tr7zw.changeme.nbtapi.iface.ReadWriteNBT;
 import dev.lone.itemsadder.api.CustomStack;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
@@ -85,6 +89,9 @@ public class ItemBuilder {
     // Custom Data
     private int customModelData;
     private boolean useCustomModelData;
+
+    private String mmoType;
+    private String mmoId;
 
     /**
      * Create a blank item builder.
@@ -179,6 +186,9 @@ public class ItemBuilder {
         this.namePlaceholders = new HashMap<>(itemBuilder.namePlaceholders);
         this.lorePlaceholders = new HashMap<>(itemBuilder.lorePlaceholders);
         this.itemFlags = new ArrayList<>(itemBuilder.itemFlags);
+
+        this.mmoType = itemBuilder.mmoType;
+        this.mmoId = itemBuilder.mmoId;
     }
 
     /**
@@ -323,15 +333,17 @@ public class ItemBuilder {
         return newName;
     }
 
-    /**
-     * Builder the item from all the information that was given to the builder.
-     *
-     * @return The result of all the info that was given to the builder as an ItemStack.
-     */
-    public ItemStack build() {
+    private ItemStack defineItem() {
         if (nbtItem != null) referenceItem = nbtItem.getItem();
 
         ItemStack item = referenceItem;
+
+        if (mmoType != null && mmoId != null) {
+            ItemStack mmoItem = MMO.getDisplayItem(mmoType, mmoId, this);
+            if (mmoItem != null) {
+                item = mmoItem;
+            }
+        }
 
         //If item is null, Check if the iaNamespace (material from config file) is a ItemsAdder CustomStack
         //otherwise, normal behaviour
@@ -343,6 +355,16 @@ public class ItemBuilder {
 
         if (item == null) item = new ItemStack(material);
 
+        return item;
+    }
+
+    /**
+     * Builder the item from all the information that was given to the builder.
+     *
+     * @return The result of all the info that was given to the builder as an ItemStack.
+     */
+    public ItemStack build() {
+        ItemStack item = defineItem();
         if (item.getType() != Material.AIR) {
             if (isHead) { // Has to go 1st due to it removing all data when finished.
                 if (isHash) { // Sauce: https://github.com/deanveloper/SkullCreator
@@ -356,8 +378,10 @@ public class ItemBuilder {
 
             item.setAmount(itemAmount);
             ItemMeta itemMeta = item.getItemMeta();
-            itemMeta.setDisplayName(getUpdatedName());
-            itemMeta.setLore(getUpdatedLore());
+            if (mmoType == null && mmoId == null) {
+                itemMeta.displayName(AdventureUtil.miniMessage(getUpdatedName()));
+                itemMeta.lore(AdventureUtil.miniMessage(getUpdatedLore()));
+            }
 
             if (itemMeta instanceof org.bukkit.inventory.meta.Damageable)
                 ((org.bukkit.inventory.meta.Damageable) itemMeta).setDamage(damage);
@@ -400,17 +424,15 @@ public class ItemBuilder {
             hideItemFlags(item);
             item.addUnsafeEnchantments(enchantments);
             addGlow(item);
-            NBTItem nbt = new NBTItem(item);
-
-            if (isHead && !isHash) nbt.setString("SkullOwner", player);
-
-            if (isMobEgg) {
-                if (entityType != null) nbt.addCompound("EntityTag").setString("id", "minecraft:" + entityType.name());
-            }
-
-            if (!crateName.isEmpty()) nbt.setString("CrazyCrates-Crate", crateName);
-
-            return nbt.getItem();
+            NBT.modify(item, nbt -> {
+                if (isHead && !isHash) nbt.setString("SkullOwner", player);
+                if (isMobEgg &&entityType != null) {
+                    ReadWriteNBT entityTag = nbt.getOrCreateCompound("EntityTag");
+                    entityTag.setString("id", "minecraft:" + entityType.name());
+                }
+                if (!crateName.isEmpty()) nbt.setString("CrazyCrates-Crate", crateName);
+            });
+            return item;
         } else {
             return item;
         }
@@ -529,7 +551,7 @@ public class ItemBuilder {
      * @return The ItemBuilder with an updated name.
      */
     public ItemBuilder setName(String itemName) {
-        if (itemName != null) this.itemName = Methods.color(itemName);
+        if (itemName != null) this.itemName = itemName;
 
         return this;
     }
@@ -575,10 +597,7 @@ public class ItemBuilder {
     public ItemBuilder setLore(List<String> lore) {
         if (lore != null) {
             this.itemLore.clear();
-
-            for (String line : lore) {
-                this.itemLore.add(Methods.color(line));
-            }
+            this.itemLore.addAll(lore);
         }
 
         return this;
@@ -591,7 +610,7 @@ public class ItemBuilder {
      * @return The ItemBuilder with updated info.
      */
     public ItemBuilder addLore(String lore) {
-        if (lore != null) this.itemLore.add(Methods.color(lore));
+        if (lore != null) this.itemLore.add(lore);
         return this;
     }
 
@@ -891,30 +910,9 @@ public class ItemBuilder {
         return this;
     }
 
-    /**
-     * The text that will be displayed on the item.
-     *
-     * @param texture     The skull texture.
-     * @param profileUUID The uuid of the profile.
-     * @return The ItemBuilder.
-     */
-    public ItemBuilder texture(String texture, UUID profileUUID) {
-        return this;
-    }
-
-    /**
-     * @param texture The skull texture.
-     * @return The ItemBuilder.
-     */
-    public ItemBuilder texture(String texture) {
-        return this;
-    }
-
-    /**
-     * @param texture The owner of the skull.
-     * @return The ItemBuilder.
-     */
-    public ItemBuilder owner(String texture) {
+    public ItemBuilder setMMOItem(String type, String id) {
+        this.mmoType = type;
+        this.mmoId = id;
         return this;
     }
 
