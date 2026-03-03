@@ -2,7 +2,7 @@
 
 paper = "1.20.4-R0.1-SNAPSHOT"
 kyori = "4.21.0"
-nbt_api = "2.15.0"
+nbt_api = "2.15.5"
 
 [libraries]
 
