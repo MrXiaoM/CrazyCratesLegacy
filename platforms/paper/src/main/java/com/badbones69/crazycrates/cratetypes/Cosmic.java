@@ -151,9 +151,9 @@ public class Cosmic implements Listener {
                     CosmicCrateManager manager = (CosmicCrateManager) crate.getManager();
                     int totalPrizes = manager.getTotalPrizes();
                     int pickedSlot = slot + 1;
-                    NBTItem nbtItem = new NBTItem(item);
+                    NBTItem nbtItem = Methods.nbt(item);
 
-                    if (nbtItem.hasNBTData()) {
+                    if (nbtItem != null && nbtItem.hasNBTData()) {
                         if (nbtItem.hasKey("Cosmic-Mystery-Crate")) {
                             if (!glass.containsKey(player)) glass.put(player, new ArrayList<>());
 

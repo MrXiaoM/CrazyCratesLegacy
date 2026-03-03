@@ -1,6 +1,8 @@
 package com.badbones69.crazycrates.api.objects;
 
+import com.badbones69.crazycrates.Methods;
 import de.tr7zw.changeme.nbtapi.NBTItem;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -107,9 +109,11 @@ public class Prize {
     public ItemStack getDisplayItem() {
         if (displayItemStack == null) {
             displayItemStack = displayItem.build();
-            NBTItem nbt = new NBTItem(displayItemStack);
-            nbt.setString("crazycrate-prize", name);
-            displayItemStack = nbt.getItem();
+            NBTItem nbt = Methods.nbt(displayItemStack);
+            if (nbt != null) {
+                nbt.setString("crazycrate-prize", name);
+                displayItemStack = nbt.getItem();
+            }
         }
 
         return displayItemStack.clone();

@@ -157,9 +157,9 @@ public class MenuListener implements Listener {
                     ItemStack item = e.getCurrentItem();
 
                     if (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
-                        NBTItem nbtItem = new NBTItem(item);
+                        NBTItem nbtItem = Methods.nbt(item);
 
-                        if (nbtItem.hasNBTData() && nbtItem.hasKey("CrazyCrates-Crate")) {
+                        if (nbtItem != null && nbtItem.hasNBTData() && nbtItem.hasTag("CrazyCrates-Crate")) {
                             Crate crate = crazyManager.getCrateFromName(nbtItem.getString("CrazyCrates-Crate"));
 
                             if (crate != null) {

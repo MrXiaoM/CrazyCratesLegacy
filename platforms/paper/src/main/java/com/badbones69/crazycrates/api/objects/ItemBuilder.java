@@ -1,6 +1,7 @@
 package com.badbones69.crazycrates.api.objects;
 
 import com.badbones69.crazycrates.MMO;
+import com.badbones69.crazycrates.Methods;
 import com.badbones69.crazycrates.support.AdventureUtil;
 import com.badbones69.crazycrates.support.SkullCreator;
 import com.badbones69.crazycrates.support.libraries.PluginSupport;
@@ -932,9 +933,9 @@ public class ItemBuilder {
         if (item.hasItemMeta() && item.getItemMeta() != null) {
             ItemMeta itemMeta = item.getItemMeta();
             itemBuilder.setName(itemMeta.getDisplayName()).setLore(itemMeta.getLore());
-            NBTItem nbt = new NBTItem(item);
+            NBTItem nbt = Methods.nbt(item);
 
-            if (nbt.hasKey("Unbreakable")) itemBuilder.setUnbreakable(nbt.getBoolean("Unbreakable"));
+            if (nbt != null && nbt.hasTag("Unbreakable")) itemBuilder.setUnbreakable(nbt.getBoolean("Unbreakable"));
 
             if (itemMeta instanceof org.bukkit.inventory.meta.Damageable)
                 itemBuilder.setDamage(((org.bukkit.inventory.meta.Damageable) itemMeta).getDamage());

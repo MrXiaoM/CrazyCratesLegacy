@@ -88,9 +88,11 @@ public class QuickCrate implements Listener {
             crazyManager.givePrize(player, prize, crate);
             plugin.getServer().getPluginManager().callEvent(new PlayerPrizeEvent(player, crate, crate.getName(), prize));
             ItemStack displayItem = prize.getDisplayItem();
-            NBTItem nbtItem = new NBTItem(displayItem);
-            nbtItem.setBoolean("crazycrates-item", true);
-            displayItem = nbtItem.getItem();
+            NBTItem nbtItem = Methods.nbt(displayItem);
+            if (nbtItem != null) {
+                nbtItem.setBoolean("crazycrates-item", true);
+                displayItem = nbtItem.getItem();
+            }
             Item reward;
 
             if (hologramController != null) hologramController.removeHologram(loc.getBlock());

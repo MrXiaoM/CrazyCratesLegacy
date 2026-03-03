@@ -225,11 +225,19 @@ public class Methods {
         return min + random.nextInt(max - min);
     }
 
+    @Nullable
+    public static NBTItem nbt(ItemStack item) {
+        if (item == null || item.getType().equals(Material.AIR) || item.getAmount() <= 0) {
+            return null;
+        }
+        return new NBTItem(item);
+    }
+
     public static boolean isSimilar(ItemStack itemStack, Crate crate) {
-        NBTItem nbtItem = new NBTItem(itemStack);
+        NBTItem nbtItem = nbt(itemStack);
         return itemStack.isSimilar(crate.getKey()) || itemStack.isSimilar(crate.getKeyNoNBT()) ||
                 itemStack.isSimilar(crate.getAdminKey()) || stripNBT(itemStack).isSimilar(crate.getKeyNoNBT()) ||
-                isSimilarCustom(crate.getKeyNoNBT(), itemStack) || (nbtItem.hasKey("CrazyCrates-Crate") && crate.getName().equals(nbtItem.getString("CrazyCrates-Crate")));
+                isSimilarCustom(crate.getKeyNoNBT(), itemStack) || (nbtItem != null && nbtItem.hasKey("CrazyCrates-Crate") && crate.getName().equals(nbtItem.getString("CrazyCrates-Crate")));
     }
 
     private static boolean isSimilarCustom(ItemStack one, ItemStack two) {
@@ -282,7 +290,8 @@ public class Methods {
 
     private static ItemStack stripNBT(ItemStack item) {
         try {
-            NBTItem nbtItem = new NBTItem(item.clone());
+            NBTItem nbtItem = nbt(item.clone());
+            if (nbtItem == null) return item;
 
             if (nbtItem.hasNBTData()) {
                 if (nbtItem.hasKey("CrazyCrates-Crate")) {

@@ -574,9 +574,9 @@ public class Crate {
 
     public Prize getPrize(ItemStack item) {
         try {
-            NBTItem nbt = new NBTItem(item);
+            NBTItem nbt = Methods.nbt(item);
 
-            if (nbt.hasKey("crazycrate-prize")) return getPrize(nbt.getString("crazycrate-prize"));
+            if (nbt != null && nbt.hasTag("crazycrate-prize")) return getPrize(nbt.getString("crazycrate-prize"));
         } catch (Exception ignored) {
         }
 
@@ -620,9 +620,9 @@ public class Crate {
                 if (item.getItemMeta().hasLore()) file.set(path + ".Lore", item.getItemMeta().getLore());
             }
 
-            NBTItem nbtItem = new NBTItem(item);
+            NBTItem nbtItem = Methods.nbt(item);
 
-            if (nbtItem.hasNBTData()) {
+            if (nbtItem != null && nbtItem.hasNBTData()) {
                 if (nbtItem.hasKey("Unbreakable") && nbtItem.getBoolean("Unbreakable"))
                     file.set(path + ".Unbreakable", true);
             }
