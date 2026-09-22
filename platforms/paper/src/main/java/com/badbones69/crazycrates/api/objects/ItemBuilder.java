@@ -12,6 +12,7 @@ import dev.lone.itemsadder.api.CustomStack;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.Registry;
 import org.bukkit.block.Banner;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
@@ -20,7 +21,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.*;
-import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 
@@ -392,14 +392,14 @@ public class ItemBuilder {
             if (isPotion && (potionType != null || potionColor != null)) {
                 PotionMeta potionMeta = (PotionMeta) itemMeta;
 
-                if (potionType != null) potionMeta.setBasePotionData(new PotionData(potionType));
+                if (potionType != null) potionMeta.setBasePotionType(potionType);
 
                 if (potionColor != null) potionMeta.setColor(potionColor);
             }
 
             if (material == Material.TIPPED_ARROW && potionType != null) {
                 PotionMeta potionMeta = (PotionMeta) itemMeta;
-                potionMeta.setBasePotionData(new PotionData(potionType));
+                potionMeta.setBasePotionType(potionType);
             }
 
             if (isLeatherArmor && armorColor != null) {
@@ -688,8 +688,8 @@ public class ItemBuilder {
         try {
             String[] split = stringPattern.split(":");
 
-            for (PatternType pattern : PatternType.values()) {
-
+            for (Object obj : Registry.PARTICLE_TYPE.stream().toArray()) {
+                PatternType pattern = (PatternType) obj;
                 if (split[0].equalsIgnoreCase(pattern.name()) || split[0].equalsIgnoreCase(pattern.getIdentifier())) {
                     DyeColor color = getDyeColor(split[1]);
 
@@ -1067,7 +1067,7 @@ public class ItemBuilder {
                         if (item.getItemMeta().hasEnchants()) return;
                     }
 
-                    item.addUnsafeEnchantment(Enchantment.LUCK, 1);
+                    item.addUnsafeEnchantment(Enchantment.LUCK_OF_THE_SEA, 1);
                     ItemMeta meta = item.getItemMeta();
                     meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                     item.setItemMeta(meta);
@@ -1087,14 +1087,12 @@ public class ItemBuilder {
         if (type != null) {
             if (type.equals(PotionEffectType.FIRE_RESISTANCE)) {
                 return PotionType.FIRE_RESISTANCE;
-            } else if (type.equals(PotionEffectType.HARM)) {
-                return PotionType.INSTANT_DAMAGE;
-            } else if (type.equals(PotionEffectType.HEAL)) {
-                return PotionType.INSTANT_HEAL;
+            } else if (type.equals(PotionEffectType.INSTANT_DAMAGE)) {
+                return PotionType.HARMING;
+            } else if (type.equals(PotionEffectType.INSTANT_HEALTH)) {
+                return PotionType.HEALING;
             } else if (type.equals(PotionEffectType.INVISIBILITY)) {
                 return PotionType.INVISIBILITY;
-            } else if (type.equals(PotionEffectType.JUMP)) {
-                return PotionType.JUMP;
             } else if (type.equals(PotionEffectType.getByName("LUCK"))) {
                 return PotionType.valueOf("LUCK");
             } else if (type.equals(PotionEffectType.NIGHT_VISION)) {
@@ -1102,12 +1100,10 @@ public class ItemBuilder {
             } else if (type.equals(PotionEffectType.POISON)) {
                 return PotionType.POISON;
             } else if (type.equals(PotionEffectType.REGENERATION)) {
-                return PotionType.REGEN;
-            } else if (type.equals(PotionEffectType.SLOW)) {
+                return PotionType.REGENERATION;
+            } else if (type.equals(PotionEffectType.SLOWNESS)) {
                 return PotionType.SLOWNESS;
-            } else if (type.equals(PotionEffectType.SPEED)) {
-                return PotionType.SPEED;
-            } else if (type.equals(PotionEffectType.INCREASE_DAMAGE)) {
+            } else if (type.equals(PotionEffectType.STRENGTH)) {
                 return PotionType.STRENGTH;
             } else if (type.equals(PotionEffectType.WATER_BREATHING)) {
                 return PotionType.WATER_BREATHING;

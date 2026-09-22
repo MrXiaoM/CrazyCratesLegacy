@@ -145,7 +145,7 @@ public class Methods {
     }
 
     public static void firework(Location loc, Color color) {
-        final Firework fw = (Firework) loc.getWorld().spawnEntity(loc, EntityType.FIREWORK);
+        final Firework fw = (Firework) loc.getWorld().spawnEntity(loc, EntityType.FIREWORK_ROCKET);
         FireworkMeta fm = fw.getFireworkMeta();
         fm.addEffects(FireworkEffect.builder().with(FireworkEffect.Type.BALL).withColor(color).withColor(color).trail(false).flicker(false).build());
         fm.setPower(0);

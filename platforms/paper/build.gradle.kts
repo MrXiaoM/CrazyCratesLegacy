@@ -5,6 +5,7 @@ plugins {
 }
 
 repositories {
+    mavenLocal()
     maven("https://nexus.phoenixdevt.fr/repository/maven-public/")
 }
 
@@ -23,8 +24,8 @@ dependencies {
 
     compileOnly(libs.itemsadder.api)
 
-    compileOnly("io.lumine:MythicLib-dist:1.6.2-SNAPSHOT")
-    compileOnly("net.Indyuce:MMOItems-API:6.10-SNAPSHOT")
+    compileOnly("io.lumine:MythicLib-dist:1.7.1-SNAPSHOT")
+    compileOnly("net.Indyuce:MMOItems-API:6.10.1-SNAPSHOT")
 }
 
 tasks {

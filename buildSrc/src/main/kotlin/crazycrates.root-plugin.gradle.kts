@@ -20,15 +20,23 @@ repositories {
 }
 
 val javaVersion = JavaVersion.VERSION_17
+val targetJavaVersion = 17
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    disableAutoTargetJvm()
+    val javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion.set(JavaLanguageVersion.of(targetJavaVersion))
+    }
 }
 
 tasks {
-    compileJava {
-        sourceCompatibility = "17"
-        targetCompatibility = "17"
+    withType<JavaCompile> {
+        options.encoding = "UTF-8"
+        options.compilerArgs.add("-Xlint:-options")
+        if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+            options.release.set(targetJavaVersion)
+        }
     }
 }
 
