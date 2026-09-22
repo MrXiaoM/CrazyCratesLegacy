@@ -402,6 +402,8 @@ public class CrateBaseCommand extends BaseCommand {
             if (keysUsed >= crate.getMaxMassOpen()) break;
 
             Prize prize = crate.pickPrize(player);
+            if (prize == null) break;
+
             crazyManager.givePrize(player, prize, crate);
             plugin.getServer().getPluginManager().callEvent(new PlayerPrizeEvent(player, crate, crate.getName(), prize));
 
@@ -417,6 +419,39 @@ public class CrateBaseCommand extends BaseCommand {
             return;
         }
         crazyManager.removePlayerFromOpeningList(player);
+    }
+
+
+    @SubCommand("force-mass-open")
+    @Permission(value = "crazycrates.command.admin.forcemassopen", def = PermissionDefault.OP)
+    public void onAdminForceOpen(CommandSender sender, @Suggestion("crates") String crateName, @Suggestion("numbers") int amount, @Suggestion("online-players") Player player) {
+        for (Crate crate : crazyManager.getCrates()) {
+            if (crate.getCrateType() != CrateType.MENU) {
+                if (crate.getName().equalsIgnoreCase(crateName)) {
+
+                    if (crazyManager.isInOpeningList(player)) {
+                        sender.sendMessage(Messages.CRATE_ALREADY_OPENED.getMessage());
+                        return;
+                    }
+
+                    crazyManager.addPlayerToOpeningList(player, crate);
+
+                    for (int keysUsed = 0; keysUsed < amount; keysUsed++) {
+                        Prize prize = crate.pickPrize(player);
+                        if (prize == null) break;
+
+                        crazyManager.givePrize(player, prize, crate);
+                        plugin.getServer().getPluginManager().callEvent(new PlayerPrizeEvent(player, crate, crate.getName(), prize));
+
+                        if (prize.useFireworks()) Methods.firework(((Player) sender).getLocation().clone().add(.5, 1, .5));
+                    }
+
+                    crazyManager.removePlayerFromOpeningList(player);
+                }
+            }
+        }
+
+        sender.sendMessage(Messages.NOT_A_CRATE.getMessage("%Crate%", crateName));
     }
 
     @SubCommand("forceopen")

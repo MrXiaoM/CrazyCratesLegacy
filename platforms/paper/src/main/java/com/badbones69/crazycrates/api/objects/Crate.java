@@ -281,6 +281,9 @@ public class Crate {
         if (isUnique()) {
             List<String> bannedPrizes = FileManager.Files.DATA.getFile().getStringList("Players." + player.getUniqueId() + ".UniqueList." + name);
             usablePrizes.removeIf(it -> bannedPrizes.contains(it.getName()));
+            if (usablePrizes.isEmpty()) {
+                return null;
+            }
         }
 
         // ================= Chance Check ================= //
@@ -360,6 +363,9 @@ public class Crate {
      */
     public Prize pickPrize(Player player, Location location) {
         Prize prize = pickPrize(player);
+        if (prize == null) {
+            return null;
+        }
 
         if (prize.useFireworks()) Methods.firework(location);
 

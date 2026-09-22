@@ -85,6 +85,12 @@ public class QuickCrate implements Listener {
             }
 
             Prize prize = crate.pickPrize(player, loc.clone().add(.5, 1.3, .5));
+            if (prize == null) {
+                CrateControlListener.inUse.remove(player);
+                crazyManager.removePlayerFromOpeningList(player);
+                return;
+            }
+
             crazyManager.givePrize(player, prize, crate);
             plugin.getServer().getPluginManager().callEvent(new PlayerPrizeEvent(player, crate, crate.getName(), prize));
             ItemStack displayItem = prize.getDisplayItem();

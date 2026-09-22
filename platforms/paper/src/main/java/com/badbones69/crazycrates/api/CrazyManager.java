@@ -393,6 +393,10 @@ public class CrazyManager {
                 } else {
                     if (takeKeys(1, player, crate, keyType, true)) {
                         Prize prize = crate.pickPrize(player);
+                        if (prize == null) {
+                            removePlayerFromOpeningList(player);
+                            break;
+                        }
                         givePrize(player, prize, crate);
 
                         if (prize.useFireworks()) Methods.firework(player.getLocation().add(0, 1, 0));
